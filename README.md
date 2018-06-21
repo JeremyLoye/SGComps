@@ -1,1 +1,2 @@
 # SGComps
+# Path to success
