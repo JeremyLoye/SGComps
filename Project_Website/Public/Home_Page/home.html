@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  <link rel='stylesheet' href='style.css' />
+
+  <!-- Firebase setup. -->
+  <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDqlaeDVox13ySVHHh0ukCyZepg7QyD0B4",
+      authDomain: "sgcomps-b8fdc.firebaseapp.com",
+      databaseURL: "https://sgcomps-b8fdc.firebaseio.com",
+      projectId: "sgcomps-b8fdc",
+      storageBucket: "sgcomps-b8fdc.appspot.com",
+      messagingSenderId: "1048240965389"
+    };
+    firebase.initializeApp(config);
+  </script>
+</head>
+
+<body>
+  <div class='page'>
+    <header class='pageTop'>
+      <div class='logo'>
+        <img src='' />
+      </div>
+      <div class='profile'>
+        <h1 id ='name'></h1>
+        <script type='text/javascript'>
+          firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+              // User is signed in.
+              var displayName = user.displayName;
+              var email = user.email;
+              var emailVerified = user.emailVerified;
+              var photoURL = user.photoURL;
+              var isAnonymous = user.isAnonymous;
+              var uid = user.uid;
+              var providerData = user.providerData;
+              var name = document.getElementById('name');
+              name.innerHTML = displayName;
+              // ...
+            } else {
+              // User is signed out.
+              // ...
+            }
+          });
+
+        </script>
+      </div>
+      <div class='menu'>
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Search</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+    </header>
+  </div>
+</body>
