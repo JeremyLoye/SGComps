@@ -1,0 +1,40 @@
+{
+  "name": "orbital",
+  "version": "1.0.0",
+  "description": "Main SGCOMPS File",
+  "main": "public/server.js",
+  "dependencies": {
+    "@google-cloud/firestore": "^0.14.1",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-flash": "0.0.2",
+    "express-layout": "^0.1.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^4.3.0",
+    "firebase": "^5.2.0",
+    "firebase-admin": "^5.12.1",
+    "firebase-functions": "^1.1.0",
+    "helmet": "^3.12.1",
+    "multer": "^1.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "scripts": {
+    "test": "test",
+    "start": "nodemon public/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeremyLoye/SGComps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeremyLoye/SGComps/issues"
+  },
+  "homepage": "https://github.com/JeremyLoye/SGComps#readme"
+}

@@ -1,0 +1,32 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"functions\" run lint"
+    ],
+    "source": "functions"
+  },
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/bigben",
+        "function": "bigben"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
