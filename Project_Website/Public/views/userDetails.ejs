@@ -36,7 +36,7 @@
         <ul class="errors-list">
           <% Object.values(errors).forEach(error => { %>
             <li>
-              <% error.msg %>
+              <%= error.msg %>
             </li>
             <% }) %>
         </ul>
@@ -58,94 +58,94 @@
         <input name='uid' type='text' id='uid'/>
       </div>
       <!-- Student Gender. -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for="gender" id="gender_label">Gender</label>
-        <input class="<% data.gender ? (data.gender == 'male' ? 'radio-checked' : '') : '' %>"
+        <input class="<%= data.gender ? (data.gender == 'male' ? 'radio-checked' : '') : '' %>"
          name="gender" type="radio" value="male">Male
-        <input class="<% data.gender ? (data.gender == 'female' ? 'radio-checked' : '') : '' %>" 
+        <input class="<%= data.gender ? (data.gender == 'female' ? 'radio-checked' : '') : '' %>" 
         name="gender" type="radio" value="female">Female
 
         <% if (errors.gender) { %>
           <div class="error">
-            <% errors.gender.msg %>
+            <%= errors.gender.msg %>
           </div>
           <% } %>
       </div>
       <!-- Student's current school. -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='school'>Current University</label>
         <select name='school'>
           <option value=''>--Select University--</option>
-          <option class="<% data.school ? (data.school == 'nus' ? 'select-check' : '') : '' %>" 
+          <option class="<%= data.school ? (data.school == 'nus' ? 'select-check' : '') : '' %>" 
           value="nus">National University of Singapore(NUS)</option>
-          <option class="<% data.school ? (data.school == 'ntu' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.school ? (data.school == 'ntu' ? 'select-check' : '') : '' %>"
           value="ntu">Nanyang Technological University(NTU)</option>
-          <option class="<% data.school ? (data.school == 'smu' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.school ? (data.school == 'smu' ? 'select-check' : '') : '' %>"
           value="smu">Singapore Management University(SMU)</option>
-          <option class="<% data.school ? (data.school == 'sutd' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.school ? (data.school == 'sutd' ? 'select-check' : '') : '' %>"
           value="sutd">Singapore University of Technology and Design(SUTD)</option>
         </select>
 
         <% if (errors.school) { %>
           <div class="error">
-            <% errors.school.msg %>
+            <%= errors.school.msg %>
           </div>
           <% } %>
       </div>
       <!-- Student's current course. -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='course'>Course</label>
         <select name='course'>
           <option value=''>--Select Course--</option>
-          <option class="<% data.course ? (data.course == 'computing' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.course ? (data.course == 'computing' ? 'select-check' : '') : '' %>"
           value='computing'>Computing</option>
-          <option class="<% data.course ? (data.course == 'arts' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.course ? (data.course == 'arts' ? 'select-check' : '') : '' %>"
           value='arts'>Arts</option>
-          <option class="<% data.course ? (data.course == 'science' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.course ? (data.course == 'science' ? 'select-check' : '') : '' %>"
           value='science'>Science</option>
-          <option class="<% data.course ? (data.course == 'business' ? 'select-check' : '') : '' %>"
+          <option class="<%= data.course ? (data.course == 'business' ? 'select-check' : '') : '' %>"
           value='business'>Business</option>
         </select>
 
         <% if (errors.course) { %>
           <div class="error">
-            <% errors.course.msg %>
+            <%= errors.course.msg %>
           </div>
           <% } %>
       </div>
       <!-- Competition types selection checkbox. -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='comp_type'>Interests:</label>
         <!-- Checks whether the box was ticked when form is submitted with error. -->
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('analytics') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('analytics') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='analytics' />
         <span>Analytics</span>
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='accounting' />
         <span>Accounting</span>
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('business') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
           value='business' />
         <span>Business</span>
         </br>
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('computer-science') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('computer-science') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='computer-science' />
         <span>Computer Science</span>
 
         <% if (errors.comp_type) { %>
           <div class="error">
-            <% errors.comp_type.msg %>
+            <%= errors.comp_type.msg %>
           </div>
           <% } %>
       </div>
       <!-- Short introduction of student -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for="message">Short Introduction:</label>
         <textarea class="input" id="message" name="message" rows="4" autofocus>
-          <% data.message %>
+          <%= data.message %>
         </textarea>
         <% if (errors.message) { %>
           <div class="error">
-            <% errors.message.msg %>
+            <%= errors.message.msg %>
           </div>
           <% } %>
       </div>
@@ -166,48 +166,48 @@
         <input name='uid' type='text' id='uid'/>
       </div>
       <!-- Organisation name -->
-      <div class="form-field <% errors.org_name ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.org_name ? 'form-field-invalid' : '' %>">
         <label for="org_name">Name of Organisation:</label>
-        <input class="input" id="org_name" name="org_name" type="text" value="<% data.org_name %>" />
+        <input class="input" id="org_name" name="org_name" type="text" value="<%= data.org_name %>" />
         <% if (errors.org_name) { %>
           <div class="error">
-            <% errors.org_name.msg %>
+            <%= errors.org_name.msg %>
           </div>
           <% } %>
       </div>
       <!-- Competition types selection checkbox. -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='comp_type'>Competition Types:</label>
         <!-- Checks whether the box was ticked when form is submitted with error. -->
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('analytics') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('analytics') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='analytics' />
         <span>Analytics</span>
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='accounting' />
         <span>Accounting</span>
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('business') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
           value='business' />
         <span>Business</span>
         </br>
-        <input class="<% data.comp_type ? (data.comp_type.indexOf('computer-science') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('computer-science') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='computer-science' />
         <span>Computer Science</span>
 
         <% if (errors.comp_type) { %>
           <div class="error">
-            <% errors.comp_type.msg %>
+            <%= errors.comp_type.msg %>
           </div>
           <% } %>
       </div>
       <!-- Short description of organisation. -->
-      <div class="form-field <% errors.message ? 'form-field-invalid' : '' %>">
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for="message">Short Description:</label>
         <textarea class="input" id="message" name="message" rows="4" autofocus>
-          <% data.message %>
+          <%= data.message %>
         </textarea>
         <% if (errors.message) { %>
           <div class="error">
-            <% errors.message.msg %>
+            <%= errors.message.msg %>
           </div>
           <% } %>
       </div>
@@ -282,5 +282,4 @@
     })
   </script>
 </body>
-
 </html>

@@ -4,16 +4,6 @@
 
 'use strict';
 
-var firebase = require('firebase')
-var app = firebase.initializeApp({
-    apiKey: "AIzaSyDqlaeDVox13ySVHHh0ukCyZepg7QyD0B4",
-    authDomain: "sgcomps-b8fdc.firebaseapp.com",
-    databaseURL: "https://sgcomps-b8fdc.firebaseio.com",
-    projectId: "sgcomps-b8fdc",
-    storageBucket: "sgcomps-b8fdc.appspot.com",
-    messagingSenderId: "1048240965389"
-})
-
 const Firestore = require('@google-cloud/firestore')
 
 const firestore = new Firestore({
@@ -37,8 +27,24 @@ AdditionalDetails.prototype = {
 
 
 AdditionalDetails.prototype.addUser = function (data) {
+    console.log('user added: ', data)
     let collection = firestore.collection('userDetails')
-    return collection.add(data)
+    return collection.doc(data.uid).set(data)
+}
+
+AdditionalDetails.prototype.getUser = function (uid) {
+    firestore.collection('userDetails').doc(uid)
+      .get()
+      .then(doc => {
+          if (doc.exists) {
+              console.log('User data: ', doc.data())
+              return doc.data()
+          } else {
+              console.log('No such User')
+          }
+      }).catch(error => {
+          console.log('error getting document: ', error)
+      })
 }
 
 exports.AdditionalDetails = new AdditionalDetails() 

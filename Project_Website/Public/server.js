@@ -1,7 +1,6 @@
 
 const path = require('path')
 const express = require('express')
-const layout = require('express-layout')
 
 const routes = require('./routes')
 const app = express()
@@ -18,10 +17,10 @@ app.set('view engine', 'ejs')
 app.set('port', process.env.PORT || 3000);
 
 const middlewares = [
-  layout(),
   express.static(path.join(__dirname, 'form')),
   express.static(path.join(__dirname, '/Home_Page/home.html')),
   express.static(path.join(__dirname + '/index.html')),
+  express.static(path.join(__dirname, '/AdditionalDetails.js')),
   bodyParser.urlencoded(),
   validator(),
   cookieParser(),
@@ -42,6 +41,10 @@ app.get('/', function(req, res) {
 
 app.get('/home', function(req,res) {
   res.sendFile(__dirname + "/Home_Page/home.html")
+})
+
+app.get('/addDetails', function(req,res) {
+  res.sendFile(__dirname + '/AdditionalDetails.js')
 })
 
 app.use('/', routes)

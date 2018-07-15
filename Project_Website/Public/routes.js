@@ -15,6 +15,19 @@ router.get('/contact', (req, res) => {
   })
 })
 
+router.post('/profile', [
+  check('uid')
+    .isLength({min: 1})
+], (req, res) => {
+  const errors= validationResult(req)
+  if (!errors.isEmpty()) {
+  }
+  let profileDetail = addDetails.AdditionalDetails.getUser(req.body.uid.toString())
+  res.render('views/profile', {
+    data: profileDetail
+  }) 
+})
+
 router.post('/org_detail', [
   check('email')
     .isLength({min: 1})

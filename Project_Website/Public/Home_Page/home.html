@@ -4,7 +4,7 @@
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-  <link rel='stylesheet' href='style.css' />
+  <link rel='stylesheet' href='home-style.css' />
 
   <!-- Firebase setup. -->
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
@@ -32,36 +32,45 @@
       </div>
       <div class='profile'>
         <h1 id ='name'></h1>
-        <script type='text/javascript'>
-          firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-              // User is signed in.
-              var displayName = user.displayName;
-              var email = user.email;
-              var emailVerified = user.emailVerified;
-              var photoURL = user.photoURL;
-              var isAnonymous = user.isAnonymous;
-              var uid = user.uid;
-              var providerData = user.providerData;
-              var name = document.getElementById('name');
-              name.innerHTML = displayName;
-              // ...
-            } else {
-              // User is signed out.
-              // ...
-            }
-          });
-
-        </script>
       </div>
       <div class='menu'>
         <ul>
           <li>Home</li>
           <li>About</li>
-          <li>Search</li>
+          <li>
+            <form method='post' action='/profile' novalidate>
+              <div class='userInfo'>
+                <input name='uid' type='text' id='uid'/>
+              </div>
+              <button class='btn' type='submit'>Profile</button>
+            </form>
+          </li>
           <li>Contact</li>
         </ul>
       </div>
     </header>
   </div>
+
+  <script type='text/javascript'>
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+        let displayName = user.displayName;
+        let email = user.email;
+        let emailVerified = user.emailVerified;
+        let photoURL = user.photoURL;
+        let isAnonymous = user.isAnonymous;
+        let uid = user.uid;
+        let providerData = user.providerData;
+        let name = document.getElementById('name');
+        name.innerHTML = displayName;
+        document.getElementById('uid').value = uid
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+
+  </script>
 </body>
