@@ -62,7 +62,7 @@
         <label for="gender" id="gender_label">Gender</label>
         <input class="<%= data.gender ? (data.gender == 'male' ? 'radio-checked' : '') : '' %>"
          name="gender" type="radio" value="male">Male
-        <input class="<%= data.gender ? (data.gender == 'female' ? 'radio-checked' : '') : '' %>" 
+        <input class="<%= data.gender ? (data.gender == 'female' ? 'radio-checked' : '') : '' %>"
         name="gender" type="radio" value="female">Female
 
         <% if (errors.gender) { %>
@@ -76,7 +76,7 @@
         <label for='school'>Current University</label>
         <select name='school'>
           <option value=''>--Select University--</option>
-          <option class="<%= data.school ? (data.school == 'nus' ? 'select-check' : '') : '' %>" 
+          <option class="<%= data.school ? (data.school == 'nus' ? 'select-check' : '') : '' %>"
           value="nus">National University of Singapore(NUS)</option>
           <option class="<%= data.school ? (data.school == 'ntu' ? 'select-check' : '') : '' %>"
           value="ntu">Nanyang Technological University(NTU)</option>
@@ -117,19 +117,33 @@
       <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='comp_type'>Interests:</label>
         <!-- Checks whether the box was ticked when form is submitted with error. -->
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('analytics') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='analytics' />
-        <span>Analytics</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('datathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='datathon' />
+        <span>Datathon</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('hackathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='hackathon' />
+        <span>Hackathon</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('coding-challenge') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='coding-challenge' />
+        <span>Coding Challenge</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business-related') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='business-related' />
+        <span>All Business Related</span>
         <input class="<%= data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='accounting' />
         <span>Accounting</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
-          value='business' />
-        <span>Business</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('computer-science') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='computer-science' />
-        <span>Computer Science</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('marketing') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='marketing' />
+        <span>Marketing</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('finance') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='finance' />
+        <span>Finance</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('consulting') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='consulting' />
+        <span>Consulting</span>
 
         <% if (errors.comp_type) { %>
           <div class="error">
@@ -162,8 +176,8 @@
     <!--****** Organisation set-up form  ******-->
     <form method="post" action="/org_detail" novalidate>
     <div class='userInfo'>
-        <input name='email' type='text' id='email'/>
-        <input name='uid' type='text' id='uid'/>
+        <input name='email' type='text' id='org-email'/>
+        <input name='uid' type='text' id='org-uid'/>
       </div>
       <!-- Organisation name -->
       <div class="form-field <%= errors.org_name ? 'form-field-invalid' : '' %>">
@@ -179,19 +193,33 @@
       <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='comp_type'>Competition Types:</label>
         <!-- Checks whether the box was ticked when form is submitted with error. -->
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('analytics') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='analytics' />
-        <span>Analytics</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('datathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='datathon' />
+        <span>Datathon</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('hackathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='hackathon' />
+        <span>Hackathon</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('coding-challenge') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='coding-challenge' />
+        <span>Coding Challenge</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business-related') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='business-related' />
+        <span>All Business Related</span>
         <input class="<%= data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
           type='checkbox' value='accounting' />
         <span>Accounting</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
-          value='business' />
-        <span>Business</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('computer-science') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='computer-science' />
-        <span>Computer Science</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('marketing') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='marketing' />
+        <span>Marketing</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('finance') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='finance' />
+        <span>Finance</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('consulting') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='consulting' />
+        <span>Consulting</span>
 
         <% if (errors.comp_type) { %>
           <div class="error">
@@ -227,7 +255,7 @@
     function chooseLayout() {
       let url = window.location.href
       let urlType = url.split('/')
-      // Get "contact", "stud_detail" or "org_detail" at end of string to 
+      // Get "contact", "stud_detail" or "org_detail" at end of string to
       // Differentiate different calls of page render [See routes.js]
       if (urlType[urlType.length - 1] == 'stud_detail') {
         stud_profile()
@@ -278,6 +306,8 @@
        document.getElementById('display-name').value = user.displayName
        document.getElementById('email').value = user.email
        document.getElementById('uid').value = user.uid
+       document.getElementById('org-email').value = user.email
+       document.getElementById('org-uid').value = user.uid
      }
     })
   </script>
