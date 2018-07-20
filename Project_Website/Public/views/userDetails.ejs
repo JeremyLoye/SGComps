@@ -53,9 +53,10 @@
     <form method="post" action="/stud_detail" novalidate>
       <h2 class='sub-title'>Student Set-Up</h2>
       <div class='userInfo'>
-        <input name='display-name' type='text' id='display-name'/>
+        <input name='displayName' type='text' id='displayName'/>
         <input name='email' type='text' id='email'/>
         <input name='uid' type='text' id='uid'/>
+        <input name='emailVerified' type='radio' id='emailVerified' />
       </div>
       <!-- Student Gender. -->
       <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
@@ -163,6 +164,10 @@
           </div>
           <% } %>
       </div>
+      <div class='footnote'>
+        <p>*Please Remember to verify your Email</p>
+        <p>Refresh the page after verifying</p>
+      </div>
       <!-- Form buttons: Submit/Back -->
       <div class="form-actions">
         <button class="btn" type="submit">Send</button>
@@ -178,6 +183,7 @@
     <div class='userInfo'>
         <input name='email' type='text' id='org-email'/>
         <input name='uid' type='text' id='org-uid'/>
+        <input name='emailVerified' type='radio' id='emailVerified' />
       </div>
       <!-- Organisation name -->
       <div class="form-field <%= errors.org_name ? 'form-field-invalid' : '' %>">
@@ -238,6 +244,10 @@
             <%= errors.message.msg %>
           </div>
           <% } %>
+      </div>
+      <div class='footnote'>
+        <p>*Please Remember to verify your Email</p>
+        <p>Refresh the page after verifying</p>
       </div>
       <!-- Form buttons: Submit/Back -->
       <div class="form-actions">
@@ -303,9 +313,13 @@
     let basicInfo = firebase.auth().onAuthStateChanged(user => {
       if (user) {
        //User is signed in.
-       document.getElementById('display-name').value = user.displayName
+       console.log(user.displayName)
+       document.getElementById('displayName').value = user.displayName
        document.getElementById('email').value = user.email
        document.getElementById('uid').value = user.uid
+       if (user.emailVerified) {
+         document.getElementById('emailVerified').checked = true
+       }
        document.getElementById('org-email').value = user.email
        document.getElementById('org-uid').value = user.uid
      }

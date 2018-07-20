@@ -11,7 +11,7 @@ const firestore = new Firestore({
     keyFilename: 'public/serviceAccountKey.json',
 })
 
-if(typeof exports == "undefined"){
+if (typeof exports == "undefined") {
     exports = this;
 }
 
@@ -20,10 +20,10 @@ function AdditionalDetails() {
 };
 
 AdditionalDetails.prototype = {
-    init: function() {
-         console.log('hello world')
+    init: function () {
+        console.log('hello world')
     }
-};
+}
 
 
 AdditionalDetails.prototype.addUser = function (data) {
@@ -33,19 +33,25 @@ AdditionalDetails.prototype.addUser = function (data) {
 }
 
 AdditionalDetails.prototype.getUser = function (uid) {
-    firestore.collection('userDetails').doc(uid)
-      .get()
-      .then(doc => {
-          if (doc.exists) {
-              console.log('User data: ', doc.data())
-              return doc.data()
-          } else {
-              console.log('No such User')
-          }
-      }).catch(error => {
-          console.log('error getting document: ', error)
-      })
+    return firestore.collection('userDetails').doc(uid).get()
 }
 
-exports.AdditionalDetails = new AdditionalDetails() 
+AdditionalDetails.prototype.updateUser = function (uid, data) {
+    let docRef = firestore.collection('userDetails').doc(uid)
+    
+    firestore.runTransaction(transaction => {
+        return transaction.get(docRef).then(doc => {
+            if (!doc.exists) {
+                throw 'Document does not exist'
+            }
+            transaction.update(docRef, data)
+            return data
+        })
+    }).then(data => {
+        console.log('New Data: ', data)
+    }).catch(error => {
+        console.log(error)
+    })
+}
 
+exports.AdditionalDetails = new AdditionalDetails()

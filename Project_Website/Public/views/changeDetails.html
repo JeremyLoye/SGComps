@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<!-- Form to key in additional user details and store in database. -->
+
+<head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+    <title>Profile</title>
+    <!-- File in /form/style.css -->
+    <link rel="stylesheet" href="/changeDetails-style.css" type="text/css" />
+    <!-- Firebase setup. -->
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDqlaeDVox13ySVHHh0ukCyZepg7QyD0B4",
+            authDomain: "sgcomps-b8fdc.firebaseapp.com",
+            databaseURL: "https://sgcomps-b8fdc.firebaseio.com",
+            projectId: "sgcomps-b8fdc",
+            storageBucket: "sgcomps-b8fdc.appspot.com",
+            messagingSenderId: "1048240965389"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <div class='page'>
+        <div id='invalidLogin'>The </div>
+        <div id='reAuth'>
+            <input id='txtEmail' type='email' placeholder='Email' />
+            <input id='txtPassword' type='password' placeholder='Password' />
+            <button id='login' class='btn' onclick='reAuthenticate()'>Login</button>
+        </div>
+        <div id='passMismatch'>
+            <p>The new password does not match</p>
+        </div>
+        <div id='passChange'>
+            <input id='newPassword' type='password' placeholder='New Password' />
+            <input id='confirmPassword' type='password' placeholder='Re-Enter Password' />
+            <button id='passSubmit' class='btn' onclick='changePassword()'>Submit</button>
+        </div>
+        <div id='emailMismatch'>
+            <p>The new email does not match</p>
+        </div>
+        <div id='emailChange'>
+            <input id='newEmail' type='email' placeholder='New Email' />
+            <input id='confirmEmail' type='email' placeholder='Re-Enter Email' />
+            <button id='emailSubmit' class='btn' onclick='changeEmail()'>Submit</button>
+        </div>
+        <div id='changeConfirmation'>
+            <div id='changeMessage'></div>
+            <button id='redirect' class='btn' onclick='redirect()'>OK</button>
+        </div>
+    </div>
+
+    <script src='changeDetails.js'></script>
+    <script src='/post.js'></script>
+</body>

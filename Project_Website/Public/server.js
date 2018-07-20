@@ -20,7 +20,7 @@ const middlewares = [
   express.static(path.join(__dirname, 'form')),
   express.static(path.join(__dirname, '/Home_Page/home.html')),
   express.static(path.join(__dirname + '/index.html')),
-  express.static(path.join(__dirname, '/AdditionalDetails.js')),
+  express.static(path.join(__dirname + '/views/changeDetails.html')),
   bodyParser.urlencoded(),
   validator(),
   cookieParser(),
@@ -43,8 +43,12 @@ app.get('/home', function(req,res) {
   res.sendFile(__dirname + "/Home_Page/home.html")
 })
 
-app.get('/addDetails', function(req,res) {
-  res.sendFile(__dirname + '/AdditionalDetails.js')
+app.get('/changePassword', function(req, res) {
+  res.sendFile(__dirname + '/views/changeDetails.html')
+})
+
+app.get('/changeEmail', function(req, res) {
+  res.sendFile(__dirname + '/views/changeDetails.html')
 })
 
 app.use('/', routes)

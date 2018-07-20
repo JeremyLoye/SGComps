@@ -24,31 +24,32 @@
   </script>
 </head>
 
-<body>
+<body onload='checkName()'>
   <div class='page'>
     <header class='pageTop'>
       <div class='logo'>
         <img src='' />
       </div>
       <div class='profile'>
-        <h1 id ='name'></h1>
+        <h1 id='name'></h1>
       </div>
       <div class='menu'>
         <ul>
           <li><a href='/competition-form'>Add A
             Competition</a></li>
           <li>Home</li>
+          <li>
+            <a href='/home'>Home</a>
+          </li>
           <li>About</li>
           <li>
-            <form method='post' action='/profile' novalidate>
-              <div class='userInfo'>
-                <input name='uid' type='text' id='uid'/>
-              </div>
-              <button class='btn' type='submit'>Profile</button>
-            </form>
+            <a href='/profile'>Profile</a>
           </li>
           <li>Contact</li>
         </ul>
+      </div>
+      <div class='signOut'>
+        <button onClick='signOut()' type='button'>Sign Out</button>
       </div>
     </header>
   </div>
@@ -57,22 +58,44 @@
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
-        let displayName = user.displayName;
-        let email = user.email;
-        let emailVerified = user.emailVerified;
-        let photoURL = user.photoURL;
-        let isAnonymous = user.isAnonymous;
-        let uid = user.uid;
-        let providerData = user.providerData;
-        let name = document.getElementById('name');
-        name.innerHTML = displayName;
-        document.getElementById('uid').value = uid
-        // ...
+        let displayName = user.displayName
+        let email = user.email
+        let emailVerified = user.emailVerified
+        let photoURL = user.photoURL
+        let uid = user.uid
+        let providerData = user.providerData
+        document.getElementById('name').innerHTML = displayName
       } else {
         // User is signed out.
-        // ...
       }
-    });
-
+    })
   </script>
+  <script type='text/javascript'>
+    function checkName() {
+      let user = firebase.auth().currentUser
+      console.log(user)
+      if (name != user.displayName) {
+        console.log('activated')
+        user.updateProfile({
+          displayName: name
+        }).then(() => {
+          console.log('Name Changed')
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+    }
+
+    function signOut() {
+      firebase.auth().signOut().then(() => {
+        post('/', {
+          signedIn: false
+        })
+        console.log('Signed Out')
+      }, error => {
+        console.log('Sign Out error', error)
+      })
+    }
+  </script>
+  <script src='/post.js'></script>
 </body>
