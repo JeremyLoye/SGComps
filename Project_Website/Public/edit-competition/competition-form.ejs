@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang='en'>
+<!-- Form to key in additional user details and store in database. -->
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  <title>Additional Details</title>
+
+  <!-- File in /form/style.css -->
+  <link rel="stylesheet" href="comp-form-style.css" type="text/css" />
+
+  <!-- Firebase setup. -->
+  <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
+  <!-- jQuery-->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="dtm/daterangepicker.css"/>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDqlaeDVox13ySVHHh0ukCyZepg7QyD0B4",
+      authDomain: "sgcomps-b8fdc.firebaseapp.com",
+      databaseURL: "https://sgcomps-b8fdc.firebaseio.com",
+      projectId: "sgcomps-b8fdc",
+      storageBucket: "sgcomps-b8fdc.appspot.com",
+      messagingSenderId: "1048240965389"
+    };
+    firebase.initializeApp(config);
+  </script>
+</head>
+<!-- onload document function to determine which form to load. See function for more details. -->
+
+<body onload='chooseLayout()'>
+  <div class="form-header">
+    <% if (Object.keys(errors).length === 0) { %>
+      <% } else { %>
+        <h2 class="errors-heading">Oops, please correct the following:</h2>
+        <ul class="errors-list">
+          <% Object.values(errors).forEach(error => { %>
+            <li>
+              <%= error.msg %>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+  </div>
+
+  <fieldset id='first'>
+    <!--****** Competition set-up form  ******-->
+    <!--****** The action links to the comp_detail router method in routes.js  ******-->
+    <form method="post" action="/comp_detail" novalidate>
+      <h2 class='sub-title'>List Competition Details</h2>
+      <!-- these classes are in css. That's how you tell css this is what you want to style-->
+      <div class='userInfo'>
+        <!-- These ids are checked by the router method in routes.js -->
+        <input name='display-name' type='text' id='display-name'/>
+        <input name='email' type='text' id='email'/>
+        <input name='uid' type='text' id='uid'/>
+      </div>
+
+      <!-- Competition name -->
+      <div class="comp_form_field <%= errors.name ? 'comp_form_field-invalid' : '' %>">
+        <label for="name">Competition Name:</label>
+        <input name='compName' type='text' id='compName'/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+          <% } %>
+      </div>
+
+      <!-- Competition Dates. -->
+      <div class="comp_form_field <%= errors.name ? 'comp_form_field-invalid' : '' %>">
+          Date:
+      <input id="date" type="text" name="date"><br>
+      </div>
+
+      <!-- Competition Tags -->
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
+        <label for='comp_type'>Tags:</label>
+        <!-- Checks whether the box was ticked when form is submitted with error. -->
+        <br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('datathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='datathon' />
+        <span>Datathon</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('hackathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='hackathon' />
+        <span>Hackathon</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('coding-challenge') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='coding-challenge' />
+        <span>Coding Challenge</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business-related') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='business-related' />
+        <span>All Business Related</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
+          type='checkbox' value='accounting' />
+        <span>Accounting</span>
+        </br>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('marketing') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='marketing' />
+        <span>Marketing</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('finance') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='finance' />
+        <span>Finance</span>
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf('consulting') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
+          value='consulting' />
+        <span>Consulting</span>
+
+        <% if (errors.comp_type) { %>
+          <div class="error">
+            <%= errors.comp_type.msg %>
+          </div>
+          <% } %>
+      </div>
+
+      <!-- Competition Description -->
+      <div class="comp_form_field <%= errors.details ? 'comp_form_field-invalid' : '' %>">
+        <label for="details">Competition Details:</label>
+        <input name='details' type='text' id='details'/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+          <% } %>
+      </div>
+
+      <!-- Upload Picture -->
+
+
+      <!-- Form buttons: Submit/Back -->
+      <div class="form-actions">
+        <button class="btn" type="submit">Send</button>
+      </div>
+    </form>
+  </fieldset>
+
+  <script>
+    // Simple functions to toggle form view.
+
+    // Function called to determine if page is rendered from login screen or
+    // due to errors in form. Calls appropiate page view.
+    function chooseLayout() {
+      let url = window.location.href
+      let urlType = url.split('/')
+      // Get "contact", "stud_detail" or "org_detail" at end of string to
+      // Differentiate different calls of page render [See routes.js]
+      if (urlType[urlType.length - 1] == 'stud_detail') {
+        stud_profile()
+      } else if (urlType[urlType.length - 1] == 'org_detail') {
+        org_profile()
+      }
+      // Re-check required boxes when page loads.
+      let box_check = document.getElementsByClassName('checked')
+      console.log(box_check)
+      for (let i = 0; i < box_check.length; i++) {
+        box_check[i].checked = true
+      }
+      // Re-Select correct value for radio buttons when page loads.
+      let radio_check = document.getElementsByClassName('radio-checked')
+      console.log(radio_check)
+      radio_check[0].checked = true
+      // Re-Select correct value for select options when page loads.
+      let select_check = document.getElementsByClassName('select-check')
+      console.log(select_check)
+      for (let i = 0; i < select_check.length; i++) {
+        select_check[i].selected = true;
+      }
+    }
+
+  </script>
+  <script>
+    let basicInfo = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+       //User is signed in.
+       document.getElementById('display-name').value = user.displayName
+       document.getElementById('email').value = user.email
+       document.getElementById('uid').value = user.uid
+       document.getElementById('org-email').value = user.email
+       document.getElementById('org-uid').value = user.uid
+     }
+   })
+   </script>
+   <script>
+   $(function() {
+     $('input[name="date"]').daterangepicker({
+       timePicker: true,
+       startDate: moment().startOf('hour'),
+       endDate: moment().startOf('hour'),
+       locale: {
+         format: 'YYYY/MM/DD hh:mm A'
+       }
+     });
+   });
+  </script>
+</body>
+</html>
