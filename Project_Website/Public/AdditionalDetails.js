@@ -38,7 +38,7 @@ AdditionalDetails.prototype.getUser = function (uid) {
 
 AdditionalDetails.prototype.updateUser = function (uid, data) {
     let docRef = firestore.collection('userDetails').doc(uid)
-    
+
     firestore.runTransaction(transaction => {
         return transaction.get(docRef).then(doc => {
             if (!doc.exists) {
@@ -52,6 +52,12 @@ AdditionalDetails.prototype.updateUser = function (uid, data) {
     }).catch(error => {
         console.log(error)
     })
+}
+
+AdditionalDetails.prototype.addComp = function (data) {
+    console.log('comp added: ', data)
+    let collection = firestore.collection('compDetails')
+    return collection.doc(data.compName).set(data)
 }
 
 exports.AdditionalDetails = new AdditionalDetails()

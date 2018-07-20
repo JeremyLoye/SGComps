@@ -263,7 +263,7 @@ router.post('/comp_detail', [
   }
       const data = matchedData(req)
       console.log('Sanitized: ', data)
-      addDetails.AdditionalDetails.addUser(data)
+      addDetails.AdditionalDetails.addComp(data)
       res.redirect('/home')
 })
 
