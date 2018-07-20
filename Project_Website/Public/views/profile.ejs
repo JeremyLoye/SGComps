@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang='en'>
-<!-- Form to key in additional user details and store in database. -->
 
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   <title>Profile</title>
   <!-- File in /form/style.css -->
+  <link rel="stylesheet" href="/profile-style.css" type="text/css" />
   <!-- Firebase setup. -->
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
-  <script>
+  <script type="text/javascript">
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyDqlaeDVox13ySVHHh0ukCyZepg7QyD0B4",
@@ -25,4 +25,25 @@
   </script>
 </head>
 <body>
+  <div class='page'>    
+    <a href='/edit_profile'>Edit Profile</a>
+    <% if (data.gender) { %>
+      <div id='displayName'><%= data.displayName %></div>
+      <%= data.email %>
+      <%= data.gender %>
+      <%= data.school %>
+      <%= data.course %>
+    <% } else { %>
+      <%= data.org_name %>
+      <%= data.email %>
+    <% } %>
+    <% for (let i = 0; i < data.comp_type.length; i++) { %>
+      <%= data.comp_type[i] %>
+    <% } %>
+    <%= data.message %>
+    <div class='links'>
+      <a href='/changePassword'>Change Your Password</a>
+      <a href='/changeEmail'>Change Your Email</a>
+    </div>
+  </div>
 </body>

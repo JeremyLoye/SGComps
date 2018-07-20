@@ -4,7 +4,7 @@
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-  <link rel='stylesheet' href='/index-style.css' type="text/css"/>
+  <link rel='stylesheet' href='/index-style.css' type="text/css" />
   <title>Login</title>
   <link rel='icon' type='image/png' href='/temp-logo.PNG' />
 
@@ -35,12 +35,26 @@
     var uiConfig = {
       callbacks: {
         signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-          let isNewUser = authResult.additionalUserInfo.isNewUser;
+          let userId = authResult.user.uid
+          let isNewUser = authResult.additionalUserInfo.isNewUser
           if (isNewUser) {
-            window.location = "/contact";
+            authResult.user.sendEmailVerification().then(() => {
+              // Email Sent
+              alert('Verification email sent.')
+              window.location = '/signUp'
+            }).catch(error => {
+              console.log(error)
+            })
+          } else {
+            if (authResult.user.emailVerified) {
+              post('/homePage', {
+                uid: userId
+              })
+            } else {
+              alert('Please verify your Email')
+            }
           }
-          console.log(isNewUser);
-          return !isNewUser;
+          return false
         },
         uiShown: function () {
           // The widget is rendered.
@@ -77,4 +91,5 @@
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Loading...</div>
   </div>
+  <script src='/post.js'></script>
 </body>
