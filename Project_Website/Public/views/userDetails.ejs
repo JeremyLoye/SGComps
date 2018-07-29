@@ -61,11 +61,17 @@
       </div>
 
       <!-- Upload Picture -->
-      <div class="photoPath">
-        <input name="photoPath" type="text" id="photoPath"/>
+      <div class='form-field <%= errors.photoPath ? "form-field-invalid" : "" %>'>
+        <input name="photoPath" type="text" id="photoPath" value="<%= data.photoPath %>"/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+          <% } %>
       </div>
-      <div class="comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>">
-        <label for="photo">Upload Profile Picture</label>
+
+      <div class='form-field <%= errors.photo ? "form-field-invalid" : "" %>'>
+        <label for="photo">Upload Poster</label>
         </br>
         Progress Bar:
         <progress value="0" max="100" id="uploader">0%</progress>
@@ -85,8 +91,8 @@
           console.log(file);
           var storageRef = firebase.storage().ref("images/" + file.name);
 
-          document.getElementById("photoPath").value = "images/" + file.name
-
+          document.getElementById("photoPath").value = "images/" + file.name;
+          console.log(document.getElementById("photoPath").value);
           var task = storageRef.put(file);
 
           task.on("state_changed",
@@ -243,11 +249,17 @@
       </div>
 
       <!-- Upload Picture -->
-      <div class="photoPath">
-        <input name="photoPath" type="text" id="photoPath"/>
+      <div class='form-field <%= errors.photoPath ? "form-field-invalid" : "" %>'>
+        <input name="photoPath" type="text" id="photoPath" value="<%= data.photoPath %>"/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+          <% } %>
       </div>
-      <div class="comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>">
-        <label for="photo">Upload Company Photo</label>
+
+      <div class='form-field <%= errors.photo ? "form-field-invalid" : "" %>'>
+        <label for="photo">Upload Poster</label>
         </br>
         Progress Bar:
         <progress value="0" max="100" id="uploader">0%</progress>
@@ -267,8 +279,8 @@
           console.log(file);
           var storageRef = firebase.storage().ref("images/" + file.name);
 
-          document.getElementById("photoPath").value = "images/" + file.name
-
+          document.getElementById("photoPath").value = "images/" + file.name;
+          console.log(document.getElementById("photoPath").value);
           var task = storageRef.put(file);
 
           task.on("state_changed",

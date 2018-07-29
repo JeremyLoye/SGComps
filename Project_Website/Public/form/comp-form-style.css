@@ -17,7 +17,7 @@ body {
   margin-bottom: 0px
 }
 
-.userInfo, .photoPath{
+.userInfo, #photoPath{
   display: none;
 }
 
