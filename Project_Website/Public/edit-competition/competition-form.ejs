@@ -65,7 +65,7 @@
       <!-- Competition name -->
       <div class="comp_form_field <%= errors.name ? 'comp_form_field-invalid' : '' %>">
         <label for="name">Competition Name:</label>
-        <input name='compName' type='text' id='compName'/>
+        <input name='compName' type='text' id='compName' value='<%= data.compName %>'/>
         <% if (errors.message) { %>
           <div class="error">
             <%= errors.message.msg %>
@@ -122,7 +122,7 @@
       <!-- Competition Description -->
       <div class="comp_form_field <%= errors.details ? 'comp_form_field-invalid' : '' %>">
         <label for="details">Competition Details:</label>
-        <input name='details' type='text' id='details'/>
+        <input name='details' type='text' id='details' value='<%= data.details %>'/>
         <% if (errors.message) { %>
           <div class="error">
             <%= errors.message.msg %>
@@ -163,17 +163,7 @@
       for (let i = 0; i < box_check.length; i++) {
         box_check[i].checked = true
       }
-      // Re-Select correct value for radio buttons when page loads.
-      let radio_check = document.getElementsByClassName('radio-checked')
-      console.log(radio_check)
-      radio_check[0].checked = true
-      // Re-Select correct value for select options when page loads.
-      let select_check = document.getElementsByClassName('select-check')
-      console.log(select_check)
-      for (let i = 0; i < select_check.length; i++) {
-        select_check[i].selected = true;
-      }
-    }
+}
 
   </script>
   <script>
