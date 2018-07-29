@@ -19,7 +19,6 @@ app.set('port', process.env.PORT || 3000);
 const middlewares = [
   express.static(path.join(__dirname, 'form')),
   express.static(path.join(__dirname, '/Home_Page/home.html')),
-  express.static(path.join(__dirname, '/Home_Page/form.html')),
   express.static(path.join(__dirname + '/index.html')),
   express.static(path.join(__dirname + '/views/changeDetails.html')),
   express.static(path.join(__dirname + '/views/myCompetitions.html')),

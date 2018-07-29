@@ -12,6 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
   <script>
     // Initialize Firebase
     var config = {
@@ -58,6 +59,50 @@
         <input name='uid' type='text' id='uid'/>
         <input name='emailVerified' type='radio' id='emailVerified' />
       </div>
+
+      <!-- Upload Picture -->
+      <div class="photoPath">
+        <input name="photoPath" type="text" id="photoPath"/>
+      </div>
+      <div class="comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>">
+        <label for="photo">Upload Profile Picture</label>
+        </br>
+        Progress Bar:
+        <progress value="0" max="100" id="uploader">0%</progress>
+        <input type="file" value="upload" id="fileButton"/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+        <% } %>
+      </div>
+      <script>
+        var uploader = document.getElementById("uploader");
+        var fileButton = document.getElementById("fileButton");
+
+        fileButton.addEventListener("change", function(e){
+          var file = e.target.files[0];
+          console.log(file);
+          var storageRef = firebase.storage().ref("images/" + file.name);
+
+          document.getElementById("photoPath").value = "images/" + file.name
+
+          var task = storageRef.put(file);
+
+          task.on("state_changed",
+            function progress(snapshot){
+              var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+              uploader.value = percentage;
+            },
+            function error(err){
+
+            },
+            function complete(){
+
+            });
+        });
+      </script>
+
       <!-- Student Gender. -->
       <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for="gender" id="gender_label">Gender</label>
@@ -65,13 +110,13 @@
          name="gender" type="radio" value="male">Male
         <input class="<%= data.gender ? (data.gender == 'female' ? 'radio-checked' : '') : '' %>"
         name="gender" type="radio" value="female">Female
-
         <% if (errors.gender) { %>
           <div class="error">
             <%= errors.gender.msg %>
           </div>
           <% } %>
       </div>
+
       <!-- Student's current school. -->
       <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='school'>Current University</label>
@@ -164,6 +209,7 @@
           </div>
           <% } %>
       </div>
+
       <div class='footnote'>
         <p>*Please Remember to verify your Email</p>
         <p>Refresh the page after verifying</p>
@@ -195,6 +241,50 @@
           </div>
           <% } %>
       </div>
+
+      <!-- Upload Picture -->
+      <div class="photoPath">
+        <input name="photoPath" type="text" id="photoPath"/>
+      </div>
+      <div class="comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>">
+        <label for="photo">Upload Company Photo</label>
+        </br>
+        Progress Bar:
+        <progress value="0" max="100" id="uploader">0%</progress>
+        <input type="file" value="upload" id="fileButton"/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+        <% } %>
+      </div>
+      <script>
+        var uploader = document.getElementById("uploader");
+        var fileButton = document.getElementById("fileButton");
+
+        fileButton.addEventListener("change", function(e){
+          var file = e.target.files[0];
+          console.log(file);
+          var storageRef = firebase.storage().ref("images/" + file.name);
+
+          document.getElementById("photoPath").value = "images/" + file.name
+
+          var task = storageRef.put(file);
+
+          task.on("state_changed",
+            function progress(snapshot){
+              var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+              uploader.value = percentage;
+            },
+            function error(err){
+
+            },
+            function complete(){
+
+            });
+        });
+      </script>
+
       <!-- Competition types selection checkbox. -->
       <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
         <label for='comp_type'>Competition Types:</label>
