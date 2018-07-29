@@ -2,27 +2,29 @@ html {
   height: 100%;
 }
 
-body {
-  display: block;
-  min-height: 100%;
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-} 
 
 * {
   box-sizing: border-box;
 }
+
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+} 
 
 .mdl-layout__content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80%;
+  height: fit-content;
 }
 
 .page-content {
-  max-width: 1080px;
+  position: relative;
+  top: 10vw;
+  height: fit-content;
   background-color: white;
   padding: 3vw;
   border-radius: 10%;
@@ -72,4 +74,8 @@ hr {
 
 .mdl-layout{
   background-image: url('Header.jpg');
+}
+
+.links > p {
+  font-size: 16px;
 }
