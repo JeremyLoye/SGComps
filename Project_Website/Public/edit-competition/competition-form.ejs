@@ -136,6 +136,8 @@
       <!-- Form buttons: Submit/Back -->
       <div class="form-actions">
         <button class="btn" type="submit">Send</button>
+        <button class="btn" type="reset">Reset</button>
+        <input type="button" onclick="location.href='/home';" value="Cancel" />
       </div>
     </form>
   </fieldset>
@@ -181,6 +183,10 @@
        document.getElementById('display-name').value = user.displayName
        document.getElementById('email').value = user.email
        document.getElementById('uid').value = user.uid
+       if (user.emailVerified) {
+         document.getElementById('emailVerified').checked = true
+         document.getElementById('orgemailVerified').checked = true
+       }
        document.getElementById('org-email').value = user.email
        document.getElementById('org-uid').value = user.uid
      }
