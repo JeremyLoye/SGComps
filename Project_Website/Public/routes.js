@@ -309,3 +309,13 @@ router.post('/editProfile', [
   addDetails.AdditionalDetails.updateUser(currentUid, data)
   res.redirect('/profile')
 })
+
+router.post('/emailChange', [
+  check('email')
+  .isEmail()
+  .trim()
+], (req, res) => {
+  let newEmail = req.body.email
+  profileDetail['email'] = newEmail
+  addDetails.AdditionalDetails.updateUser(currentUid, profileDetail)
+})

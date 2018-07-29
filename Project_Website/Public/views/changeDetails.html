@@ -27,35 +27,48 @@
 </head>
 
 <body>
-    <div class='page'>
-        <div id='invalidLogin'>The </div>
-        <div id='reAuth'>
-            <input id='txtEmail' type='email' placeholder='Email' />
-            <input id='txtPassword' type='password' placeholder='Password' />
-            <button id='login' class='btn' onclick='reAuthenticate()'>Login</button>
+        <div class='page'>
+            <div id='invalidLogin'>The email and password you entered don't match</div>
+            <div id='reAuth'>
+                <h3>Re-Authentication</h3>
+                <p>Please re-authenticate user details before proceeding.</p>
+                <h4>Email</h4>
+                <input id='txtEmail' type='email' placeholder='Email' />
+                <h4>Password</h4>
+                <input id='txtPassword' type='password' placeholder='Password' />
+                <button id='login' class='btn' onclick='reAuthenticate()'>Login</button>
+                <a href='/profile'>Cancel</a>
+            </div>
+            <div id='passMismatch'>
+                <p>The new password does not match</p>
+            </div>
+            <div id='passChange'>
+                <h3>Change Password</h3>
+                <h4>New Password</h4>
+                <input id='newPassword' type='password' placeholder='New Password' />
+                <h4>Confirm Password</h4>
+                <input id='confirmPassword' type='password' placeholder='Re-Enter Password' />
+                <button id='passSubmit' class='btn' onclick='changePassword()'>Submit</button>
+                <a href='/profile'>Cancel</a>
+            </div>
+            <div id='emailMismatch'>
+                <p>The new email does not match</p>
+            </div>
+            <div id='emailChange'>
+                <h3>Change Email</h3>
+                <p>*Email needs to be verified again.</p>
+                <h4>New Email</h4>
+                <input id='newEmail' type='email' placeholder='New Email' />
+                <h4>Confirm Email</h4>
+                <input id='confirmEmail' type='email' placeholder='Re-Enter Email' />
+                <button id='emailSubmit' class='btn' onclick='changeEmail()'>Submit</button>
+                <a href='/profile'>Cancel</a>
+            </div>
+            <div id='changeConfirmation'>
+                <div id='changeMessage'></div>
+                <button id='redirect' class='btn' onclick='redirect()'>OK</button>
+            </div>
         </div>
-        <div id='passMismatch'>
-            <p>The new password does not match</p>
-        </div>
-        <div id='passChange'>
-            <input id='newPassword' type='password' placeholder='New Password' />
-            <input id='confirmPassword' type='password' placeholder='Re-Enter Password' />
-            <button id='passSubmit' class='btn' onclick='changePassword()'>Submit</button>
-        </div>
-        <div id='emailMismatch'>
-            <p>The new email does not match</p>
-        </div>
-        <div id='emailChange'>
-            <input id='newEmail' type='email' placeholder='New Email' />
-            <input id='confirmEmail' type='email' placeholder='Re-Enter Email' />
-            <button id='emailSubmit' class='btn' onclick='changeEmail()'>Submit</button>
-        </div>
-        <div id='changeConfirmation'>
-            <div id='changeMessage'></div>
-            <button id='redirect' class='btn' onclick='redirect()'>OK</button>
-        </div>
-    </div>
-
-    <script src='changeDetails.js'></script>
-    <script src='/post.js'></script>
-</body>
+        <script src='changeDetails.js'></script>
+        <script src='/post.js'></script>
+    </body>

@@ -3,16 +3,73 @@ html {
 }
 
 body {
+  display: block;
+  min-height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+} 
+
+* {
+  box-sizing: border-box;
+}
+
+.mdl-layout__content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100%;
-  margin: 0;
-  background: #fff;
-  font-family: -apple-system, 'Segoe UI', sans-serif;
+  min-height: 80%;
 }
 
-* {
-  box-sizing: border-box;
+.page-content {
+  max-width: 1080px;
+  background-color: white;
+  padding: 3vw;
+  border-radius: 10%;
+}
+
+.profileHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  max-width: 30vw;
+  max-height: 25vw;
+}
+
+.image {
+  width: 20%;
+}
+
+hr {
+  position: relative;
+  bottom: 1.5vw;
+  height: 5px;
+  background-color: #0404a0;
+  width: 33vw;
+}
+
+.text {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.text > h1 {
+  font-size: 48px;
+}
+
+.text > a {
+  position: relative;
+  bottom: 1vw;
+  padding-left: 0.5vw;
+  text-decoration: none;
+}
+
+.mdl-layout__header-row {
+  background-color: rgba(153, 204, 255, 0.1);
+}
+
+.mdl-layout{
+  background-image: url('Header.jpg');
 }
