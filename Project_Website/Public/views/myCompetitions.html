@@ -4,13 +4,18 @@
 <head>
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-  <title>Profile</title>
-  
+  <link rel='stylesheet' href='home-style.css' />
+
   <!-- Firebase setup. -->
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
-  <script type="text/javascript">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script>
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyDqlaeDVox13ySVHHh0ukCyZepg7QyD0B4",
@@ -22,14 +27,18 @@
     };
     firebase.initializeApp(config);
   </script>
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  <!-- File in /form/style.css -->
-  <link rel="stylesheet" href="/profile-style.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
+
+  <!-- Uses a header that contracts as the page scrolls down. -->
+  <style>
+  .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+    padding-right: 0;
+  }
+  </style>
+
   <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
     <header class="mdl-layout__header mdl-layout__header--waterfall">
       <!-- Top row, always visible -->
@@ -70,66 +79,50 @@
         <a class="mdl-navigation__link" onclick='signOut()' href=''>Sign Out</a>
       </nav>
     </div>
-  <main class="mdl-layout__content">
+    <main class="mdl-layout__content">
       <div class="page-content">
-        <div class='profileHead'>
-        <div class='text'>
-        <h1>Profile</h1>
-        <a href='/edit_profile'>Edit</a>
+        <h2>My Competitions</h2>
+        <style>
+            .demo-card-wide.mdl-card {
+              width: 512px;
+            }
+            .demo-card-wide > .mdl-card__title {
+              color: #fff;
+              height: 176px;
+              background: url('../assets/demos/welcome_card.jpg') center / cover;
+            }
+            .demo-card-wide > .mdl-card__menu {
+              color: #fff;
+            }
+            </style>
+            <div class='listing'></div>
+        </div>
       </div>
-      <div class='image'>
-        <img src='/avatar.svg' />
-      </div>
-    </div>
-    <hr align='center'>
-    <% if (data.gender) { %>
-      <div class='field'>
-        <h4>Name</h4>
-        <p><%= data.displayName %></p>
-      </div>
-    <% } else { %>
-      <div class='field'>
-        <h4>Organisation</h4>
-        <p><%= data.org_name %></p>
-      </div>
-    <% } %>
-    <div class='field'>
-      <h4>Email </h4>
-      <p><%= data.email %></p>
-    </div>
-    <% if (data.gender) { %>
-      <div class='field'>
-        <h4>Gender</h4>
-        <p><%= data.gender %></p>
-      </div>
-      <div class='field'>
-        <h4>School</h4>
-        <p><%= data.school %></p>
-      </div>
-      <div class='field'>
-        <h4>Course</h4>
-        <p><%= data.course %></p>
-      </div>
-    <% } %>
-    <div class='field'>
-      <h4>Competition Interests</h4>
-      <% for (let i = 0; i < data.comp_type.length; i++) { %>
-        <p><%= data.comp_type[i] %></p>
-      <% } %>
-    </div>
-    <div class='field'>
-      <h4>Short Introduction</h4>
-      <p><%= data.message %></p>
-    </div>
-    <div class='links'>
-      <p><a href='/changePassword'>Change Your Password</a></p>
-      <p><a href='/changeEmail'>Change Your Email</a></p>
-    </div>
+    </main>
   </div>
-  </main>
-  </div>
-  <script src='/signOut.js'>
+
+  <script type='text/javascript'>
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+        let photoURL = user.photoURL
+        let uid = user.uid
+        let providerData = user.providerData
+        firebase.firestore().collection('userDetails').doc(uid).get().then(doc => {
+          let data = doc.data()
+          console.log(data)
+        if (!data.compName) {
+            document.getElementById('displayName').innerHTML = data.displayName
+        } else {
+            document.getElementById('displayName').innerHTML = data.compName
+        }
+    })
+      } else {
+        // User is signed out.
+      }
+    })
   </script>
+  <script src='/signOut.js'></script>
+  <script src="/myComps.js"></script>
   <script src='/post.js'></script>
-  <!--<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
 </body>
