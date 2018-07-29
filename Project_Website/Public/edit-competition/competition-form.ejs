@@ -20,7 +20,6 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  <link rel="stylesheet" type="text/css" href="dtm/daterangepicker.css"/>
   <script>
     // Initialize Firebase
     var config = {
@@ -178,8 +177,8 @@
       <!-- Form buttons: Submit/Back -->
       <div class="form-actions">
         <button class="btn" type="submit">Send</button>
-        <button class="btn" type="reset">Reset</button>
-        <input type="button" onclick="location.href="/home";" value="Cancel" />
+        <button class="btn" type="reset" onclick='location.href="/competition-form";'>Reset</button>
+        <input type="button" onclick='location.href="/home";' value="Cancel" />
       </div>
     </form>
   </fieldset>

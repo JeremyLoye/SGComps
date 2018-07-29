@@ -13,6 +13,24 @@ body {
   font-family: -apple-system, 'Segoe UI', sans-serif;
 }
 
+#uploader{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30%;
+  margin-bottom: 0px
+}
+
+input#file {
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+  z-index: -1;
+}
+
+.userInfo, .photoPath{
+  display: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -95,10 +113,6 @@ label {
 
 .form-actions {
   margin-top: 20px;
-}
-
-.userInfo {
-  display: none;
 }
 
 .btn {
