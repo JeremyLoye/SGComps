@@ -19,6 +19,7 @@ app.set('port', process.env.PORT || 3000);
 const middlewares = [
   express.static(path.join(__dirname, 'form')),
   express.static(path.join(__dirname, '/Home_Page/home.html')),
+  express.static(path.join(__dirname, '/Home_Page/form.html')),
   express.static(path.join(__dirname + '/index.html')),
   express.static(path.join(__dirname + '/views/changeDetails.html')),
   express.static(path.join(__dirname + '/views/myCompetitions.html')),
@@ -42,6 +43,10 @@ app.get('/', function(req, res) {
 
 app.get('/home', function(req,res) {
   res.sendFile(__dirname + "/Home_Page/home.html")
+})
+
+app.get('/form', function(req,res) {
+  res.sendFile(__dirname + "/Home_Page/form.html")
 })
 
 app.get('/changePassword', function(req, res) {

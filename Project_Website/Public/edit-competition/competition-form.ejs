@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <!-- Form to key in additional user details and store in database. -->
 
 <head>
-  <meta charset='UTF-8' />
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Additional Details</title>
 
   <!-- File in /form/style.css -->
@@ -14,10 +14,12 @@
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-storage.js"></script>
   <!-- jQuery-->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="stylesheet" type="text/css" href="dtm/daterangepicker.css"/>
   <script>
     // Initialize Firebase
@@ -34,7 +36,7 @@
 </head>
 <!-- onload document function to determine which form to load. See function for more details. -->
 
-<body onload='chooseLayout()'>
+<body onload="chooseLayout()">
   <div class="form-header">
     <% if (Object.keys(errors).length === 0) { %>
       <% } else { %>
@@ -49,23 +51,23 @@
         <% } %>
   </div>
 
-  <fieldset id='first'>
+  <fieldset id="first">
     <!--****** Competition set-up form  ******-->
     <!--****** The action links to the comp_detail router method in routes.js  ******-->
     <form method="post" action="/comp_detail" novalidate>
-      <h2 class='sub-title'>List Competition Details</h2>
-      <!-- these classes are in css. That's how you tell css this is what you want to style-->
-      <div class='userInfo'>
+      <h2 class="sub-title">List Competition Details</h2>
+      <!-- these classes are in css. That"s how you tell css this is what you want to style-->
+      <div class="userInfo">
         <!-- These ids are checked by the router method in routes.js -->
-        <input name='display-name' type='text' id='display-name'/>
-        <input name='email' type='text' id='email'/>
-        <input name='uid' type='text' id='uid'/>
+        <input name="display-name" type="text" id="display-name"/>
+        <input name="email" type="text" id="email"/>
+        <input name="uid" type="text" id="uid"/>
       </div>
 
       <!-- Competition name -->
-      <div class="comp_form_field <%= errors.name ? 'comp_form_field-invalid' : '' %>">
+      <div class="comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>">
         <label for="name">Competition Name:</label>
-        <input name='compName' type='text' id='compName' value='<%= data.compName %>'/>
+        <input name="compName" type="text" id="compName" value="<%= data.compName %>"/>
         <% if (errors.message) { %>
           <div class="error">
             <%= errors.message.msg %>
@@ -74,42 +76,42 @@
       </div>
 
       <!-- Competition Dates. -->
-      <div class="comp_form_field <%= errors.name ? 'comp_form_field-invalid' : '' %>">
+      <div class="comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>">
           Date:
       <input id="date" type="text" name="date"><br>
       </div>
 
       <!-- Competition Tags -->
-      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
-        <label for='comp_type'>Tags:</label>
+      <div class="form-field <%= errors.message ? "form-field-invalid" : "" %>">
+        <label for="comp_type">Tags:</label>
         <!-- Checks whether the box was ticked when form is submitted with error. -->
         <br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('datathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='datathon' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("datathon") > -1 ? "checked" : "") : "" %>" name="comp_type"
+          type="checkbox" value="datathon" />
         <span>Datathon</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('hackathon') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='hackathon' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("hackathon") > -1 ? "checked" : "") : "" %>" name="comp_type"
+          type="checkbox" value="hackathon" />
         <span>Hackathon</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('coding-challenge') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='coding-challenge' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("coding-challenge") > -1 ? "checked" : "") : "" %>" name="comp_type"
+          type="checkbox" value="coding-challenge" />
         <span>Coding Challenge</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('business-related') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
-          value='business-related' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("business-related") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+          value="business-related" />
         <span>All Business Related</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('accounting') > -1 ? 'checked' : '') : '' %>" name='comp_type'
-          type='checkbox' value='accounting' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("accounting") > -1 ? "checked" : "") : "" %>" name="comp_type"
+          type="checkbox" value="accounting" />
         <span>Accounting</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('marketing') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
-          value='marketing' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("marketing") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+          value="marketing" />
         <span>Marketing</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('finance') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
-          value='finance' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("finance") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+          value="finance" />
         <span>Finance</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf('consulting') > -1 ? 'checked' : '') : '' %>" name='comp_type' type='checkbox'
-          value='consulting' />
+        <input class="<%= data.comp_type ? (data.comp_type.indexOf("consulting") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+          value="consulting" />
         <span>Consulting</span>
 
         <% if (errors.comp_type) { %>
@@ -120,9 +122,9 @@
       </div>
 
       <!-- Competition Description -->
-      <div class="comp_form_field <%= errors.details ? 'comp_form_field-invalid' : '' %>">
+      <div class="comp_form_field <%= errors.details ? "comp_form_field-invalid" : "" %>">
         <label for="details">Competition Details:</label>
-        <input name='details' type='text' id='details' value='<%= data.details %>'/>
+        <input name="details" type="text" id="details" value="<%= data.details %>"/>
         <% if (errors.message) { %>
           <div class="error">
             <%= errors.message.msg %>
@@ -131,13 +133,53 @@
       </div>
 
       <!-- Upload Picture -->
+      <div class="photoPath">
+        <input name="photoPath" type="text" id="photoPath"/>
+      </div>
+      <div class="comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>">
+        <label for="photo">Upload Poster</label>
+        </br>
+        Progress Bar:
+        <progress value="0" max="100" id="uploader">0%</progress>
+        <input type="file" value="upload" id="fileButton"/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+        <% } %>
+      </div>
+      <script>
+        var uploader = document.getElementById("uploader");
+        var fileButton = document.getElementById("fileButton");
 
+        fileButton.addEventListener("change", function(e){
+          var file = e.target.files[0];
+          console.log(file);
+          var storageRef = firebase.storage().ref("images/" + file.name);
+
+          document.getElementById("photoPath").value = "images/" + file.name
+
+          var task = storageRef.put(file);
+
+          task.on("state_changed",
+            function progress(snapshot){
+              var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+              uploader.value = percentage;
+            },
+            function error(err){
+
+            },
+            function complete(){
+
+            });
+        });
+      </script>
 
       <!-- Form buttons: Submit/Back -->
       <div class="form-actions">
         <button class="btn" type="submit">Send</button>
         <button class="btn" type="reset">Reset</button>
-        <input type="button" onclick="location.href='/home';" value="Cancel" />
+        <input type="button" onclick="location.href="/home";" value="Cancel" />
       </div>
     </form>
   </fieldset>
@@ -149,16 +191,16 @@
     // due to errors in form. Calls appropiate page view.
     function chooseLayout() {
       let url = window.location.href
-      let urlType = url.split('/')
+      let urlType = url.split("/")
       // Get "contact", "stud_detail" or "org_detail" at end of string to
       // Differentiate different calls of page render [See routes.js]
-      if (urlType[urlType.length - 1] == 'stud_detail') {
+      if (urlType[urlType.length - 1] == "stud_detail") {
         stud_profile()
-      } else if (urlType[urlType.length - 1] == 'org_detail') {
+      } else if (urlType[urlType.length - 1] == "org_detail") {
         org_profile()
       }
       // Re-check required boxes when page loads.
-      let box_check = document.getElementsByClassName('checked')
+      let box_check = document.getElementsByClassName("checked")
       console.log(box_check)
       for (let i = 0; i < box_check.length; i++) {
         box_check[i].checked = true
@@ -170,15 +212,15 @@
     let basicInfo = firebase.auth().onAuthStateChanged(user => {
       if (user) {
        //User is signed in.
-       document.getElementById('display-name').value = user.displayName
-       document.getElementById('email').value = user.email
-       document.getElementById('uid').value = user.uid
+       document.getElementById("display-name").value = user.displayName
+       document.getElementById("email").value = user.email
+       document.getElementById("uid").value = user.uid
        if (user.emailVerified) {
-         document.getElementById('emailVerified').checked = true
-         document.getElementById('orgemailVerified').checked = true
+         document.getElementById("emailVerified").checked = true
+         document.getElementById("orgemailVerified").checked = true
        }
-       document.getElementById('org-email').value = user.email
-       document.getElementById('org-uid').value = user.uid
+       document.getElementById("org-email").value = user.email
+       document.getElementById("org-uid").value = user.uid
      }
    })
    </script>
@@ -186,10 +228,10 @@
    $(function() {
      $('input[name="date"]').daterangepicker({
        timePicker: true,
-       startDate: moment().startOf('hour'),
-       endDate: moment().startOf('hour'),
+       startDate: moment().startOf("hour"),
+       endDate: moment().startOf("hour"),
        locale: {
-         format: 'YYYY/MM/DD hh:mm A'
+         format: "YYYY/MM/DD hh:mm A"
        }
      });
    });
