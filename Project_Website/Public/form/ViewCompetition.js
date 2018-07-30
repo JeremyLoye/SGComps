@@ -11,12 +11,14 @@ firestore.collection('compDetails').orderBy('date').limit(50).get().then(functio
     let user = firebase.auth().currentUser
     querySnapshot.forEach(function (doc) {
         let data = doc.data()
+        let compName = data.compName
         let register
-        if (user.displayName) {
-            register = '<a onclick="register(user.uid, data.compName)" href="">Register</a>'
+        if (data.participants.indexOf(user.uid) == -1) {
+            register = `<button value="${compName}" onclick="updateData(this.value)">Register</button>`
         } else {
             register = '<p>Registered</p>'
         }
+
         $(document).ready(() => {
             $('.listing').append('<div class="demo-card-wide mdl-card mdl-shadow--2dp">' +
                 '<div class="mdl-card__title">' +
@@ -32,36 +34,37 @@ firestore.collection('compDetails').orderBy('date').limit(50).get().then(functio
     })
 })
 
-function register(uid, compName) {
-    let docRef = firestore.collection('userDetails').doc(uid)
-    let data = docRef.get().data()
-    data.compsInvolved.push(compName)
-    firestore.runTransaction(transaction => {
-        return transaction.get(docRef).then(doc => {
-            if (!doc.exists) {
-                throw 'Document does not exist'
-            }
-            transaction.update(docRef, data)
-            return data
+function updateData(compName) {
+    console.log(compName)
+    let user = firebase.auth().currentUser
+    let docRef = firestore.collection('userDetails').doc(user.uid)
+    console.log(docRef)
+    docRef.get().then(doc => {
+        let data = doc.data()
+        if (!data.compsInvolved) {
+            data.compsInvolved = []
+        }
+        data.compsInvolved.push(compName)
+        console.log(data.compsInvolved)
+        docRef.update(data).then(() => {
+            console.log('Doc updated successfully.')
         })
-    }).then(data => {
-        console.log('New Data: ', data)
     }).catch(error => {
         console.log(error)
     })
-    docRef = firestore.collection('compDetails').doc(compName)
-    data = docRef.get().data()
-    data.users.push(compName)
-    firestore.runTransaction(transaction => {
-        return transaction.get(docRef).then(doc => {
-            if (!doc.exists) {
-                throw 'Document does not exist'
-            }
-            transaction.update(docRef, data)
-            return data
+
+    let compRef = firestore.collection('compDetails').doc(compName)
+    compRef.get().then(doc => {
+        let data = doc.data()
+        if (!data.participants) {
+            data.participants = []
+        }
+        data.participants.push(user.uid)
+        compRef.update(data).then(() => {
+            console.log('Doc updated successfully.')
+            window.location = '/home'
+            alert('Registration Successful')
         })
-    }).then(data => {
-        console.log('New Data: ', data)
     }).catch(error => {
         console.log(error)
     })

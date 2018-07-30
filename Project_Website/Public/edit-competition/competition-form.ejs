@@ -58,13 +58,13 @@
       <!-- these classes are in css. That"s how you tell css this is what you want to style-->
       <div class="userInfo">
         <!-- These ids are checked by the router method in routes.js -->
-        <input name="display-name" type="text" id="display-name"/>
+        <input name="orgName" type="text" id="orgName"/>
         <input name="email" type="text" id="email"/>
         <input name="uid" type="text" id="uid"/>
       </div>
 
       <!-- Competition name -->
-      <div class="comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>">
+      <div class='comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>'>
         <label for="name">Competition Name:</label>
         <input name="compName" type="text" id="compName" value="<%= data.compName %>"/>
         <% if (errors.message) { %>
@@ -75,41 +75,41 @@
       </div>
 
       <!-- Competition Dates. -->
-      <div class="comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>">
+      <div class='comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>'>
           Date:
       <input id="date" type="text" name="date"><br>
       </div>
 
       <!-- Competition Tags -->
-      <div class="form-field <%= errors.message ? "form-field-invalid" : "" %>">
+      <div class='form-field <%= errors.message ? "form-field-invalid" : "" %>'>
         <label for="comp_type">Tags:</label>
         <!-- Checks whether the box was ticked when form is submitted with error. -->
         <br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("datathon") > -1 ? "checked" : "") : "" %>" name="comp_type"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("datathon") > -1 ? "checked" : "") : "" %>' name="comp_type"
           type="checkbox" value="datathon" />
         <span>Datathon</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("hackathon") > -1 ? "checked" : "") : "" %>" name="comp_type"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("hackathon") > -1 ? "checked" : "") : "" %>' name="comp_type"
           type="checkbox" value="hackathon" />
         <span>Hackathon</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("coding-challenge") > -1 ? "checked" : "") : "" %>" name="comp_type"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("coding-challenge") > -1 ? "checked" : "") : "" %>' name="comp_type"
           type="checkbox" value="coding-challenge" />
         <span>Coding Challenge</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("business-related") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("business-related") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
           value="business-related" />
         <span>All Business Related</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("accounting") > -1 ? "checked" : "") : "" %>" name="comp_type"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("accounting") > -1 ? "checked" : "") : "" %>' name="comp_type"
           type="checkbox" value="accounting" />
         <span>Accounting</span>
         </br>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("marketing") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("marketing") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
           value="marketing" />
         <span>Marketing</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("finance") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("finance") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
           value="finance" />
         <span>Finance</span>
-        <input class="<%= data.comp_type ? (data.comp_type.indexOf("consulting") > -1 ? "checked" : "") : "" %>" name="comp_type" type="checkbox"
+        <input class='<%= data.comp_type ? (data.comp_type.indexOf("consulting") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
           value="consulting" />
         <span>Consulting</span>
 
@@ -121,7 +121,7 @@
       </div>
 
       <!-- Competition Description -->
-      <div class="comp_form_field <%= errors.details ? "comp_form_field-invalid" : "" %>">
+      <div class='comp_form_field <%= errors.details ? "comp_form_field-invalid" : "" %>'>
         <label for="details">Competition Details:</label>
         <input name="details" type="text" id="details" value="<%= data.details %>"/>
         <% if (errors.message) { %>
@@ -135,7 +135,7 @@
       <div class="photoPath">
         <input name="photoPath" type="text" id="photoPath"/>
       </div>
-      <div class="comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>">
+      <div class='comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>'>
         <label for="photo">Upload Poster</label>
         </br>
         Progress Bar:
@@ -208,7 +208,7 @@
 
   </script>
   <script>
-    let basicInfo = firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
        //User is signed in.
        document.getElementById("display-name").value = user.displayName
@@ -220,7 +220,9 @@
        }
        document.getElementById("org-email").value = user.email
        document.getElementById("org-uid").value = user.uid
-     }
+       let data = firebase.firestore().collection('userDetails').doc(user.uid).get().data()
+       document.getElementById('orgName').value = data.org_name
+    }
    })
    </script>
    <script>

@@ -4,9 +4,8 @@ body {
   width: 100%;
   padding:0;
   margin:0;
-  align-items: cente
-  r;
-  justify-content: : center;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -17,7 +16,56 @@ body {
   margin-bottom: 0px
 }
 
-.userInfo, .photoPath{
+.form-field {
+  margin-bottom: 10px;
+}
+
+.error,
+.errors-list {
+  font-size: 14px;
+  color: #C00;
+}
+
+.errors-list {
+  margin: 0 0 1.5em;
+  padding: 0 0 0 15px;
+}
+
+.form-field-invalid .input {
+  border-color: #C00;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #24b47e;
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-width: 1px 1px 3px;
+  border-radius: 3px;
+  font: inherit;
+  font-weight: 700px;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 1px 1px rgba(0, 0, 0, .2);
+  margin-bottom: 0.2em;
+}
+
+.btn:hover,
+.btn:focus {
+  outline: none;
+  background: #2AA172;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+.userInfo, 
+.photoPath{
   display: none;
 }
 

@@ -221,6 +221,7 @@ router.post('/stud_detail', [
   }
 
   const data = matchedData(req)
+  data.compsInvolved = []
   console.log('Sanitized: ', data)
   profileDetail = data
   signedIn = true

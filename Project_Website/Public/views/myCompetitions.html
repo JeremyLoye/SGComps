@@ -107,6 +107,7 @@
         // User is signed in.
         let photoURL = user.photoURL
         let uid = user.uid
+        generateList(uid)
         let providerData = user.providerData
         firebase.firestore().collection('userDetails').doc(uid).get().then(doc => {
           let data = doc.data()
