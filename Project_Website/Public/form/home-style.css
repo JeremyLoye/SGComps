@@ -1,32 +1,25 @@
-html {
-  overflow: scroll;
-}
-
 body {
   min-height: 100%;
   margin: 0;
 }
 
 .userInfo {
-    display: none;
-  }
-
-*{
-    box-sizing: border-box;
+  display: none;
 }
 
-.mdl-layout__header-row {
-  display: flex;
-  background-color: rgba(153, 204, 255, 0.1);
+* {
+  box-sizing: border-box;
 }
 
 .mdl-layout {
-  background-image: url('Header.jpg');
-  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: unset;
+  height: fit-content;
+  background-image: url('Header.jpg');
+  background: cover;
 }
 
 .mdl-layout__content {
@@ -81,4 +74,8 @@ button:focus {
 
 button:active {
   transform: translateY(1px);
+}
+
+.pageHead>h2 {
+  color: white;
 }
