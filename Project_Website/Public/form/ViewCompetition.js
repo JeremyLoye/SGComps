@@ -1,19 +1,28 @@
 'use strict';
 
-const firestore = firebase.firestore();
+const firestore = firebase.firestore()
 const settings = { /* your settings... */
     timestampsInSnapshots: true
 };
+
+const storage = firebase.storage()
 
 firestore.settings(settings)
 
 function viewCards(userData) {
     firestore.collection('compDetails').orderBy('date').limit(50).get().then(function (querySnapshot) {
         let user = firebase.auth().currentUser
+        let cardNum = 0
         querySnapshot.forEach(function (doc) {
+            let cardId = 'card' + cardNum
             let data = doc.data()
             let compName = data.compName
             let register
+            let storageRef = storage.refFromURL(`gs://sgcomps-b8fdc.appspot.com/${data.photoPath}`)
+            storageRef.getDownloadURL().then(url => {
+                console.log(url)
+                $(`#${cardId}`).css('background', 'url(' + url + ')')
+            })
             if (userData.orgName) {
                 register = ''
             } else if (data.participants.indexOf(user.uid) == -1) {
@@ -24,18 +33,26 @@ function viewCards(userData) {
 
             $(document).ready(() => {
                 $('.listing').append('<div class="demo-card-wide mdl-card mdl-shadow--2dp">' +
-                    '<div class="mdl-card__title">' +
+                    `<div class="mdl-card__title" id="${cardId}">` +
+                    `<p class='competitionTag'>${data.comp_type}</p>` +
                     '<h2 class="mdl-card__title-text">' + data.compName + '</h2>' +
                     '</div>' +
                     '<div class="mdl-card__supporting-text">' +
                     '<p>' + data.details + '</p>' +
+                    `<p>When: ${data.date}</p>` +
                     '</div>' +
                     '<div class="mdl-card__actions mdl-card--border">' +
                     register +
-                    '</div>' +
-                    $('.mdl-card__title').css('background', 'url(' + data.photoPath + ')')
+                    '</div>' + '<style>' +
+                    `#${cardId} {` +
+                    'color: #fff;' +
+                    'height: 176px;' +
+                    `background: url("");` +
+                    'background-size: cover;' +
+                    '} </style>'
                 )
             })
+            cardNum += 1
         })
     })
 }
