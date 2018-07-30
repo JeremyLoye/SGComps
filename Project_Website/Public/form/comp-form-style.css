@@ -64,8 +64,8 @@ body {
 .btn:active {
   transform: translateY(1px);
 }
-.userInfo, 
-.photoPath{
+
+.userInfo, #photoPath{
   display: none;
 }
 

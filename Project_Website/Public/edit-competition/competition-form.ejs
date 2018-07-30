@@ -132,9 +132,18 @@
       </div>
 
       <!-- Upload Picture -->
-      <div class="photoPath">
-        <input name="photoPath" type="text" id="photoPath"/>
+      <div class='comp_form_field <%= errors.photoPath ? "comp_form_field-invalid" : "" %>'>
+        <input name="photoPath" type="text" id="photoPath" value="<%= data.photoPath %>"/>
+        <% if (errors.message) { %>
+          <div class="error">
+            <%= errors.message.msg %>
+          </div>
+          <% } %>
       </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f86e1a4c89e125830d72c95f518bbaed31c8bd51
       <div class='comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>'>
         <label for="photo">Upload Poster</label>
         </br>
@@ -156,8 +165,8 @@
           console.log(file);
           var storageRef = firebase.storage().ref("images/" + file.name);
 
-          document.getElementById("photoPath").value = "images/" + file.name
-
+          document.getElementById("photoPath").value = "images/" + file.name;
+          console.log(document.getElementById("photoPath").value);
           var task = storageRef.put(file);
 
           task.on("state_changed",

@@ -27,7 +27,7 @@ input#file {
   z-index: -1;
 }
 
-.userInfo, .photoPath{
+.userInfo {
   display: none;
 }
 

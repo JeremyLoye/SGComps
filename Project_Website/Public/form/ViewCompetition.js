@@ -29,7 +29,9 @@ firestore.collection('compDetails').orderBy('date').limit(50).get().then(functio
                 '</div>' +
                 '<div class="mdl-card__actions mdl-card--border">' +
                 register +
-                '</div>')
+                '</div>' +
+                $('.mdl-card__title').css('background', 'url('+data.photoPath+')')
+              )
         })
     })
 })

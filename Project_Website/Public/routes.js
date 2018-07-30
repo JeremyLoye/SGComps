@@ -105,6 +105,10 @@ router.post('/org_detail', [
   })
   .withMessage('Organisation name is required')
   .trim(),
+  check('photoPath')
+  .isLength({ min: 1 })
+  .withMessage('Poster or Image is required')
+  .trim(),
   check('comp_type')
   .not().isEmpty()
   .withMessage('At least one type is required')
@@ -205,6 +209,10 @@ router.post('/stud_detail', [
   .not().isEmpty()
   .withMessage('At least one interest is required')
   .trim(),
+  check('photoPath')
+  .isLength({ min: 1 })
+  .withMessage('Poster or Image is required')
+  .trim(),
   check('message')
   .isLength({
     min: 1
@@ -253,6 +261,10 @@ router.post('/comp_detail', [
   check('details')
     .isLength({ min: 1 })
     .withMessage('Details are required')
+    .trim(),
+  check('photoPath')
+    .isLength({ min: 1 })
+    .withMessage('Poster or Image is required')
     .trim()
 ], (req, res) => {
   const errors = validationResult(req)
