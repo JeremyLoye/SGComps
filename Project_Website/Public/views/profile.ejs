@@ -62,12 +62,12 @@
       </div>
     </header>
     <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title" id='displayName'></span>
+      <span class="mdl-layout-title" id='displayName'><%= data.gender ? data.displayName : data.orgName %></span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">Profile</a>
-        <a class="mdl-navigation__link" href="">My Competitions</a>
-        <a class="mdl-navigation__link" href="">Settings</a>
-        <a class="mdl-navigation__link" onclick='signOut()' href=''>Sign Out</a>
+      <a class="mdl-navigation__link" href='/profile'>Profile</a>
+      <a class="mdl-navigation__link" href='/myComps'>My Competitions</a>
+      <a class="mdl-navigation__link" id='addComp' href="/competition-form">Add a Competition</a>
+      <a class="mdl-navigation__link" onclick='signOut()' href=''>Sign Out</a>
       </nav>
     </div>
   <main class="mdl-layout__content">
@@ -90,7 +90,7 @@
     <% } else { %>
       <div class='field'>
         <h4>Organisation</h4>
-        <p><%= data.org_name %></p>
+        <p><%= data.orgName %></p>
       </div>
     <% } %>
     <div class='field'>

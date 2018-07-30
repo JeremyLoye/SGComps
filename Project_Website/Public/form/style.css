@@ -9,7 +9,8 @@ body {
   justify-content: center;
   min-height: 100%;
   margin: 0;
-  background: #fff;
+  background-image: url('Header.jpg');
+  background-size: cover;
   font-family: -apple-system, 'Segoe UI', sans-serif;
 }
 
@@ -27,7 +28,9 @@ input#file {
   z-index: -1;
 }
 
-.userInfo {
+.userInfo,
+#photoPath,
+#orgPhotoPath {
   display: none;
 }
 

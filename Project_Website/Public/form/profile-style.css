@@ -23,11 +23,12 @@ body {
 
 .page-content {
   position: relative;
-  top: 10vw;
+  top: 5vw;
   height: fit-content;
   background-color: white;
   padding: 3vw;
   border-radius: 10%;
+  margin-bottom: 5vw;
 }
 
 .profileHead {

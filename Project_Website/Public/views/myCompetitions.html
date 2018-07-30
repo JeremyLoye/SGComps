@@ -5,7 +5,8 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   <link rel='stylesheet' href='home-style.css' />
-
+  <title>My Competitions</title>
+  <link rel='icon' type='image/png' href='/temp-logo.PNG' />
   <!-- Firebase setup. -->
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
@@ -73,9 +74,9 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title" id='displayName'></span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">Profile</a>
-        <a class="mdl-navigation__link" href="">My Competitions</a>
-        <a class="mdl-navigation__link" href="">Settings</a>
+        <a class="mdl-navigation__link" href='/profile'>Profile</a>
+        <a class="mdl-navigation__link" href='/myComps'>My Competitions</a>
+        <a class="mdl-navigation__link" id='addComp' href="/competition-form">Add a Competition</a>
         <a class="mdl-navigation__link" onclick='signOut()' href=''>Sign Out</a>
       </nav>
     </div>
@@ -112,10 +113,11 @@
         firebase.firestore().collection('userDetails').doc(uid).get().then(doc => {
           let data = doc.data()
           console.log(data)
-        if (!data.compName) {
+        if (!data.orgName) {
             document.getElementById('displayName').innerHTML = data.displayName
+            document.getElementById('addComp').style.display = 'none'
         } else {
-            document.getElementById('displayName').innerHTML = data.compName
+            document.getElementById('displayName').innerHTML = data.orgName
         }
     })
       } else {

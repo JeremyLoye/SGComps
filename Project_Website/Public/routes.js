@@ -17,8 +17,11 @@ const {
 module.exports = router
 
 router.get('/competition-form', (req, res) => {
+  console.log(profileDetail.orgName)
   res.render('edit-competition/competition-form', {
-    data: {},
+    data: {
+      orgName: profileDetail.orgName
+    },
     errors: {}
   })
 })
@@ -99,7 +102,7 @@ router.post('/org_detail', [
   .not().isEmpty()
   .withMessage('Email not verified')
   .trim(),
-  check('org_name')
+  check('orgName')
   .isLength({
     min: 1
   })
@@ -133,6 +136,7 @@ router.post('/org_detail', [
   }
 
   const data = matchedData(req)
+  data.compsInvolved = []
   console.log('Sanitized: ', data)
   profileDetail = data
   signedIn = true
@@ -238,7 +242,7 @@ router.post('/stud_detail', [
 })
 
 router.post('/comp_detail', [
-  check('display-name')
+  check('orgName')
     .isLength({min: 1})
     .withMessage('Not logged in')
     .trim(),
@@ -277,6 +281,11 @@ router.post('/comp_detail', [
       const data = matchedData(req)
       data.participants = []
       console.log('Sanitized: ', data)
+      addDetails.AdditionalDetails.getUser(data.uid).then(doc => {
+        let userData = doc.data()
+        userData.compsInvolved.push(data.compName)
+        addDetails.AdditionalDetails.updateUser(data.uid, userData)
+      })
       addDetails.AdditionalDetails.addComp(data)
       res.redirect('/home')
 })

@@ -5,10 +5,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Additional Details</title>
+  <title>Add Competition</title>
+  <link rel='icon' type='image/png' href='/temp-logo.PNG' />
 
-  <!-- File in /form/style.css -->
-  <link rel="stylesheet" href="comp-form-style.css" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
   <!-- Firebase setup. -->
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
@@ -32,166 +34,209 @@
     };
     firebase.initializeApp(config);
   </script>
+  <!-- File in /form/style.css -->
+  <link rel="stylesheet" href="/comp-form-style.css" type="text/css" />
 </head>
 <!-- onload document function to determine which form to load. See function for more details. -->
 
-<body onload="chooseLayout()">
-  <div class="form-header">
-    <% if (Object.keys(errors).length === 0) { %>
-      <% } else { %>
-        <h2 class="errors-heading">Oops, please correct the following:</h2>
-        <ul class="errors-list">
-          <% Object.values(errors).forEach(error => { %>
-            <li>
-              <%= error.msg %>
-            </li>
-            <% }) %>
-        </ul>
+<body>
+  <!-- Uses a header that contracts as the page scrolls down. -->
+  <style>
+    .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
+      padding-right: 0;
+    }
+  </style>
+
+  <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header--waterfall">
+      <!-- Top row, always visible -->
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">SGComps</span>
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                mdl-textfield--floating-label mdl-textfield--align-right">
+          <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+            <i class="material-icons">search</i>
+          </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp">
+          </div>
+        </div>
+      </div>
+      <!-- Bottom row, not visible on scroll -->
+      <div class="mdl-layout__header-row">
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href='/home'>Home</a>
+          <a class="mdl-navigation__link" href="">About</a>
+          <a class="mdl-navigation__link" href='/profile'>Profile</a>
+          <a class="mdl-navigation__link" href="">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title" id='displayName'><%= data.orgName %></span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href='/profile'>Profile</a>
+        <a class="mdl-navigation__link" href='/myComps'>My Competitions</a>
+        <a class="mdl-navigation__link" id='addComp' href="/competition-form">Add a Competition</a>
+        <a class="mdl-navigation__link" onclick='signOut()' href=''>Sign Out</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <fieldset id="first">
+          <!--****** Competition set-up form  ******-->
+          <!--****** The action links to the comp_detail router method in routes.js  ******-->
+          <form method="post" action="/comp_detail" novalidate>
+            <h2 class="sub-title">Competition Details</h2>
+            <!-- these classes are in css. That"s how you tell css this is what you want to style-->
+            <div class="userInfo">
+              <!-- These ids are checked by the router method in routes.js -->
+              <input name="orgName" type="text" id="orgName" value="<%= data.orgName %>" />
+              <input name="email" type="text" id="email" />
+              <input name="uid" type="text" id="uid" />
+            </div>
+
+            <!-- Competition name -->
+            <div class='comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>'>
+              <label for="name">Competition Name:</label>
+              <input name="compName" type="text" id="compName" value="<%= data.compName %>" />
+              <% if (errors.compName) { %>
+                <div class="error">
+                  <%= errors.compName.msg %>
+                </div>
+                <% } %>
+            </div>
+
+            <!-- Competition Dates. -->
+            <div class='comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>'>
+              <label for="date">Date:</label>
+              <input id="date" type="text" name="date">
+              <br>
+              <% if (errors.date) { %>
+                <div class="error">
+                  <%= errors.date.msg %>
+                </div>
+                <% } %>
+            </div>
+
+            <!-- Competition Tags -->
+            <div class='form-field <%= errors.message ? "form-field-invalid" : "" %>'>
+              <label for="comp_type">Tags:</label>
+              <!-- Checks whether the box was ticked when form is submitted with error. -->
+              <br>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("datathon") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
+                value="datathon" />
+              <span>Datathon</span>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("hackathon") > -1 ? "checked" : "") : "" %>' name="comp_type"
+                type="checkbox" value="hackathon" />
+              <span>Hackathon</span>
+              </br>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("coding-challenge") > -1 ? "checked" : "") : "" %>' name="comp_type"
+                type="checkbox" value="coding-challenge" />
+              <span>Coding Challenge</span>
+              </br>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("business-related") > -1 ? "checked" : "") : "" %>' name="comp_type"
+                type="checkbox" value="business-related" />
+              <span>All Business Related</span>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("accounting") > -1 ? "checked" : "") : "" %>' name="comp_type"
+                type="checkbox" value="accounting" />
+              <span>Accounting</span>
+              </br>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("marketing") > -1 ? "checked" : "") : "" %>' name="comp_type"
+                type="checkbox" value="marketing" />
+              <span>Marketing</span>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("finance") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
+                value="finance" />
+              <span>Finance</span>
+              <input class='<%= data.comp_type ? (data.comp_type.indexOf("consulting") > -1 ? "checked" : "") : "" %>' name="comp_type"
+                type="checkbox" value="consulting" />
+              <span>Consulting</span>
+
+              <% if (errors.comp_type) { %>
+                <div class="error">
+                  <%= errors.comp_type.msg %>
+                </div>
+                <% } %>
+            </div>
+
+            <!-- Upload Picture -->
+            <div class='comp_form_field <%= errors.photoPath ? "comp_form_field-invalid" : "" %>'>
+              <input name="photoPath" type="text" id="photoPath" value="<%= data.photoPath %>" />
+              <% if (errors.message) { %>
+                <div class="error">
+                  <%= errors.message.msg %>
+                </div>
+                <% } %>
+            </div>
+
+            <div class='comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>'>
+              <label for="photo">Upload Poster</label>
+              </br>
+              Progress Bar:
+              <progress value="0" max="100" id="uploader">0%</progress>
+              <input type="file" value="upload" id="fileButton" />
+              <% if (errors.message) { %>
+                <div class="error">
+                  <%= errors.message.msg %>
+                </div>
+                <% } %>
+            </div>
+            <script>
+              var uploader = document.getElementById("uploader");
+              var fileButton = document.getElementById("fileButton");
+
+              fileButton.addEventListener("change", function (e) {
+                var file = e.target.files[0];
+                console.log(file);
+                var storageRef = firebase.storage().ref("images/" + file.name);
+
+                document.getElementById("photoPath").value = "images/" + file.name;
+                console.log(document.getElementById("photoPath").value);
+                var task = storageRef.put(file);
+
+                task.on("state_changed",
+                  function progress(snapshot) {
+                    var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    uploader.value = percentage;
+                  },
+                  function error(err) {
+
+                  },
+                  function complete() {
+
+                  });
+              });
+            </script>
+                  <!-- Short description of competition -->
+      <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
+      <label for="message">Competition Details:</label>
+      <textarea class="input" id="details" name="details" rows="4" autofocus>
+        <%= data.message %>
+      </textarea>
+      <% if (errors.details) { %>
+        <div class="error">
+          <%= errors.details.msg %>
+        </div>
         <% } %>
+    </div>
+
+            <!-- Form buttons: Submit/Back -->
+            <div class="form-actions">
+              <button class="btn submit" type="submit">Send</button>
+              <div class="buttonGroup">
+              <button class="btn reset" type="reset" onclick='location.href="/competition-form";'>Reset</button>
+              <input class="btn cancel" type="button" onclick='location.href="/home";' value="Cancel" />
+            </div>
+              </div>
+          </form>
+        </fieldset>
+      </div>
+    </main>
   </div>
-
-  <fieldset id="first">
-    <!--****** Competition set-up form  ******-->
-    <!--****** The action links to the comp_detail router method in routes.js  ******-->
-    <form method="post" action="/comp_detail" novalidate>
-      <h2 class="sub-title">List Competition Details</h2>
-      <!-- these classes are in css. That"s how you tell css this is what you want to style-->
-      <div class="userInfo">
-        <!-- These ids are checked by the router method in routes.js -->
-        <input name="orgName" type="text" id="orgName"/>
-        <input name="email" type="text" id="email"/>
-        <input name="uid" type="text" id="uid"/>
-      </div>
-
-      <!-- Competition name -->
-      <div class='comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>'>
-        <label for="name">Competition Name:</label>
-        <input name="compName" type="text" id="compName" value="<%= data.compName %>"/>
-        <% if (errors.message) { %>
-          <div class="error">
-            <%= errors.message.msg %>
-          </div>
-          <% } %>
-      </div>
-
-      <!-- Competition Dates. -->
-      <div class='comp_form_field <%= errors.name ? "comp_form_field-invalid" : "" %>'>
-          Date:
-      <input id="date" type="text" name="date"><br>
-      </div>
-
-      <!-- Competition Tags -->
-      <div class='form-field <%= errors.message ? "form-field-invalid" : "" %>'>
-        <label for="comp_type">Tags:</label>
-        <!-- Checks whether the box was ticked when form is submitted with error. -->
-        <br>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("datathon") > -1 ? "checked" : "") : "" %>' name="comp_type"
-          type="checkbox" value="datathon" />
-        <span>Datathon</span>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("hackathon") > -1 ? "checked" : "") : "" %>' name="comp_type"
-          type="checkbox" value="hackathon" />
-        <span>Hackathon</span>
-        </br>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("coding-challenge") > -1 ? "checked" : "") : "" %>' name="comp_type"
-          type="checkbox" value="coding-challenge" />
-        <span>Coding Challenge</span>
-        </br>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("business-related") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
-          value="business-related" />
-        <span>All Business Related</span>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("accounting") > -1 ? "checked" : "") : "" %>' name="comp_type"
-          type="checkbox" value="accounting" />
-        <span>Accounting</span>
-        </br>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("marketing") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
-          value="marketing" />
-        <span>Marketing</span>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("finance") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
-          value="finance" />
-        <span>Finance</span>
-        <input class='<%= data.comp_type ? (data.comp_type.indexOf("consulting") > -1 ? "checked" : "") : "" %>' name="comp_type" type="checkbox"
-          value="consulting" />
-        <span>Consulting</span>
-
-        <% if (errors.comp_type) { %>
-          <div class="error">
-            <%= errors.comp_type.msg %>
-          </div>
-          <% } %>
-      </div>
-
-      <!-- Competition Description -->
-      <div class='comp_form_field <%= errors.details ? "comp_form_field-invalid" : "" %>'>
-        <label for="details">Competition Details:</label>
-        <input name="details" type="text" id="details" value="<%= data.details %>"/>
-        <% if (errors.message) { %>
-          <div class="error">
-            <%= errors.message.msg %>
-          </div>
-          <% } %>
-      </div>
-
-      <!-- Upload Picture -->
-      <div class='comp_form_field <%= errors.photoPath ? "comp_form_field-invalid" : "" %>'>
-        <input name="photoPath" type="text" id="photoPath" value="<%= data.photoPath %>"/>
-        <% if (errors.message) { %>
-          <div class="error">
-            <%= errors.message.msg %>
-          </div>
-          <% } %>
-      </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> f86e1a4c89e125830d72c95f518bbaed31c8bd51
-      <div class='comp_form_field <%= errors.photo ? "comp_form_field-invalid" : "" %>'>
-        <label for="photo">Upload Poster</label>
-        </br>
-        Progress Bar:
-        <progress value="0" max="100" id="uploader">0%</progress>
-        <input type="file" value="upload" id="fileButton"/>
-        <% if (errors.message) { %>
-          <div class="error">
-            <%= errors.message.msg %>
-          </div>
-        <% } %>
-      </div>
-      <script>
-        var uploader = document.getElementById("uploader");
-        var fileButton = document.getElementById("fileButton");
-
-        fileButton.addEventListener("change", function(e){
-          var file = e.target.files[0];
-          console.log(file);
-          var storageRef = firebase.storage().ref("images/" + file.name);
-
-          document.getElementById("photoPath").value = "images/" + file.name;
-          console.log(document.getElementById("photoPath").value);
-          var task = storageRef.put(file);
-
-          task.on("state_changed",
-            function progress(snapshot){
-              var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-              uploader.value = percentage;
-            },
-            function error(err){
-
-            },
-            function complete(){
-
-            });
-        });
-      </script>
-
-      <!-- Form buttons: Submit/Back -->
-      <div class="form-actions">
-        <button class="btn" type="submit">Send</button>
-        <button class="btn" type="reset" onclick='location.href="/competition-form";'>Reset</button>
-        <input type="button" onclick='location.href="/home";' value="Cancel" />
-      </div>
-    </form>
-  </fieldset>
-
   <script>
     // Simple functions to toggle form view.
 
@@ -213,38 +258,35 @@
       for (let i = 0; i < box_check.length; i++) {
         box_check[i].checked = true
       }
-}
-
+    }
   </script>
   <script>
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-       //User is signed in.
-       document.getElementById("display-name").value = user.displayName
-       document.getElementById("email").value = user.email
-       document.getElementById("uid").value = user.uid
-       if (user.emailVerified) {
-         document.getElementById("emailVerified").checked = true
-         document.getElementById("orgemailVerified").checked = true
-       }
-       document.getElementById("org-email").value = user.email
-       document.getElementById("org-uid").value = user.uid
-       let data = firebase.firestore().collection('userDetails').doc(user.uid).get().data()
-       document.getElementById('orgName').value = data.org_name
-    }
-   })
-   </script>
-   <script>
-   $(function() {
-     $('input[name="date"]').daterangepicker({
-       timePicker: true,
-       startDate: moment().startOf("hour"),
-       endDate: moment().startOf("hour"),
-       locale: {
-         format: "YYYY/MM/DD hh:mm A"
-       }
-     });
-   });
+        //User is signed in.
+        document.getElementById("email").value = user.email
+        document.getElementById("uid").value = user.uid
+        if (user.emailVerified) {
+          document.getElementById("emailVerified").checked = true
+          document.getElementById("orgemailVerified").checked = true
+        }
+        document.getElementById("org-email").value = user.email
+        document.getElementById("org-uid").value = user.uid
+      }
+    })
+  </script>
+  <script>
+    $(function () {
+      $('input[name="date"]').daterangepicker({
+        timePicker: true,
+        startDate: moment().startOf("hour"),
+        endDate: moment().startOf("hour"),
+        locale: {
+          format: "YYYY/MM/DD hh:mm A"
+        }
+      });
+    });
   </script>
 </body>
+
 </html>

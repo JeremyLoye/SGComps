@@ -7,34 +7,38 @@ const settings = { /* your settings... */
 
 firestore.settings(settings)
 
-firestore.collection('compDetails').orderBy('date').limit(50).get().then(function (querySnapshot) {
-    let user = firebase.auth().currentUser
-    querySnapshot.forEach(function (doc) {
-        let data = doc.data()
-        let compName = data.compName
-        let register
-        if (data.participants.indexOf(user.uid) == -1) {
-            register = `<button value="${compName}" onclick="updateData(this.value)">Register</button>`
-        } else {
-            register = '<p>Registered</p>'
-        }
+function viewCards(userData) {
+    firestore.collection('compDetails').orderBy('date').limit(50).get().then(function (querySnapshot) {
+        let user = firebase.auth().currentUser
+        querySnapshot.forEach(function (doc) {
+            let data = doc.data()
+            let compName = data.compName
+            let register
+            if (userData.orgName) {
+                register = ''
+            } else if (data.participants.indexOf(user.uid) == -1) {
+                register = `<button value="${compName}" onclick="updateData(this.value)">Register</button>`
+            } else {
+                register = '<p>Registered</p>'
+            }
 
-        $(document).ready(() => {
-            $('.listing').append('<div class="demo-card-wide mdl-card mdl-shadow--2dp">' +
-                '<div class="mdl-card__title">' +
-                '<h2 class="mdl-card__title-text">' + data.compName + '</h2>' +
-                '</div>' +
-                '<div class="mdl-card__supporting-text">' +
-                '<p>' + data.details + '</p>' +
-                '</div>' +
-                '<div class="mdl-card__actions mdl-card--border">' +
-                register +
-                '</div>' +
-                $('.mdl-card__title').css('background', 'url('+data.photoPath+')')
-              )
+            $(document).ready(() => {
+                $('.listing').append('<div class="demo-card-wide mdl-card mdl-shadow--2dp">' +
+                    '<div class="mdl-card__title">' +
+                    '<h2 class="mdl-card__title-text">' + data.compName + '</h2>' +
+                    '</div>' +
+                    '<div class="mdl-card__supporting-text">' +
+                    '<p>' + data.details + '</p>' +
+                    '</div>' +
+                    '<div class="mdl-card__actions mdl-card--border">' +
+                    register +
+                    '</div>' +
+                    $('.mdl-card__title').css('background', 'url(' + data.photoPath + ')')
+                )
+            })
         })
     })
-})
+}
 
 function updateData(compName) {
     console.log(compName)

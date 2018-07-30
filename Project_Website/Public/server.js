@@ -22,6 +22,7 @@ const middlewares = [
   express.static(path.join(__dirname + '/index.html')),
   express.static(path.join(__dirname + '/views/changeDetails.html')),
   express.static(path.join(__dirname + '/views/myCompetitions.html')),
+  express.static(path.join(__dirname + '/404.html')),
   bodyParser.urlencoded(),
   validator(),
   cookieParser(),
@@ -68,7 +69,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.error(err.stack)
-  res.status(500).send('Something broke!')
+  res.status(500).sendFile(__dirname + '/404.html')
 })
 
 app.listen(app.get('port'), () => {
