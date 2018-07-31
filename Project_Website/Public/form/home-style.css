@@ -1,6 +1,11 @@
 body {
   min-height: 100%;
   margin: 0;
+  background-image: url('Header.jpg');
+  background: cover;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .userInfo {
@@ -18,8 +23,6 @@ body {
   justify-content: center;
   overflow: unset;
   height: fit-content;
-  background-image: url('Header.jpg');
-  background: cover;
 }
 
 .mdl-layout__content {

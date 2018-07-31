@@ -20,7 +20,7 @@ function generateList(uid) {
                 let storageRef = storage.refFromURL(`gs://sgcomps-b8fdc.appspot.com/${data.photoPath}`)
                 storageRef.getDownloadURL().then(url => {
                     console.log(url)
-                    $(`#${cardId}`).css('background', 'url(' + url + ')')
+                    $(`#${cardId}`).css('background', 'url(' + url + ')').css('background-size', '100% 100%')
                 })
                 $(document).ready(() => {
                     $('.listing').append('<div class="demo-card-wide mdl-card mdl-shadow--2dp">' +
@@ -34,7 +34,7 @@ function generateList(uid) {
                         '</div>' + '</div>' + '<style>' +
                         `#${cardId} {` +
                         'color: #fff;' +
-                        'height: 176px;' +
+                        'height: 240px;' +
                         `background: url("");` +
                         'background-size: cover;' +
                         '} </style>')

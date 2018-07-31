@@ -6,7 +6,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
   <title>Profile</title>
   <link rel='icon' type='image/png' href='/temp-logo.PNG' />
-  
+
   <!-- Firebase setup. -->
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
@@ -74,14 +74,14 @@
   <main class="mdl-layout__content">
       <div class="page-content">
         <div class='profileHead'>
-        <div class='text'>
-        <h1>Profile</h1>
-        <a href='/edit_profile'>Edit</a>
-      </div>
-      <div class='image'>
-        <img src='/avatar.svg' />
-      </div>
-    </div>
+          <div class='text'>
+            <h1>Profile</h1>
+            <a href='/edit_profile'>Edit</a>
+            </div>
+            <div class='image'>
+            <img src='/avatar.svg' />
+            </div>
+        </div>
     <hr align='center'>
     <% if (data.gender) { %>
       <div class='field'>
@@ -115,7 +115,12 @@
     <div class='field'>
       <h4>Competition Interests</h4>
       <% for (let i = 0; i < data.comp_type.length; i++) { %>
-        <p><%= data.comp_type[i] %></p>
+        <%if (data.comp_type[i].length == 1) { %>
+          <p><%= data.comp_type %></p>
+          <% break %>
+        <% } else { %>
+          <p><%= data.comp_type[i] %></p>
+        <% } %>
       <% } %>
     </div>
     <div class='field'>

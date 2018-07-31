@@ -21,7 +21,7 @@ function viewCards(userData) {
             let storageRef = storage.refFromURL(`gs://sgcomps-b8fdc.appspot.com/${data.photoPath}`)
             storageRef.getDownloadURL().then(url => {
                 console.log(url)
-                $(`#${cardId}`).css('background', 'url(' + url + ')')
+                $(`#${cardId}`).css('background', 'url(' + url + ')').css('background-size', '100% 100%')
             })
             if (userData.orgName) {
                 register = ''
@@ -30,7 +30,7 @@ function viewCards(userData) {
             } else {
                 register = '<p>Registered</p>'
             }
-            
+
             $(document).ready(() => {
                 $('.listing').append('<div class="demo-card-wide mdl-card mdl-shadow--2dp">' +
                     `<div class="mdl-card__title" id="${cardId}">` +
@@ -46,9 +46,9 @@ function viewCards(userData) {
                     '</div>' + '<style>' +
                     `#${cardId} {` +
                     'color: #fff;' +
-                    'height: 176px;' +
+                    'height: 240px;' +
                     `background: url("");` +
-                    'background-size: cover;' +
+                    'background-size: contain;' +
                     '} </style>'
                 )
             })
